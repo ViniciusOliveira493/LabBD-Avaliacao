@@ -1,17 +1,12 @@
 USE AVL1LabBD
 go
 --========================================= FUNCTION OBTER DATAS DE JOGOS ==============--
-CREATE FUNCTION fn_obterDatasValidas()
+CREATE FUNCTION fn_obterDatasValidas(@dataInicio DATE, @dataFim DATE)
 RETURNS @tab TABLE(id INT,dataJogo DATE)
 AS
 BEGIN
-	DECLARE 
-		@dataInicio DATE
-		, @dataFim DATE
-		, @i INT
-
-	SET @dataInicio = '27/02/2021'
-	SET @dataFIM = DATEADD(DAY,1,'23/05/2021')
+	DECLARE @i INT
+	SET @dataFIM = DATEADD(DAY,1, @dataFim)
 	SET @i = 1
 	WHILE(@dataInicio != @dataFim)
 	BEGIN
@@ -25,8 +20,15 @@ BEGIN
 	RETURN
 END
 
---=============== Testes =====--
-SELECT * from fn_obterDatasValidas()
+--======================== FUNCTION OBTER DATAS PRIMEIRA FASE ============--
+CREATE FUNCTION fn_obterDatasValidasPrimeiraFase()
+RETURNS @tab TABLE(id INT,dataJogo DATE)
+AS
+BEGIN
+	INSERT INTO @tab(id,dataJogo)
+		SELECT id,dataJogo from fn_obterDatasValidas('2021-02-27','2021-04-07')
+	RETURN
+END
 
 --======================================= PROCEDURE JOGO VALIDO =======================================--
 CREATE PROCEDURE sp_jogoValido(@timeA INT, @timeB INT,@valido BIT OUTPUT)
@@ -48,9 +50,6 @@ BEGIN
 	END
 END
 
-DECLARE @valido BIT
-EXEC sp_jogoValido 1,2,@valido OUTPUT 
-print @valido
 --======================================= PROCEDURE JOGO VALIDO DIA=======================================--
 CREATE PROCEDURE sp_jogoValidoDia(@timeA INT, @timeB INT,@dt DATE,@valido BIT OUTPUT)
 AS
@@ -60,23 +59,17 @@ BEGIN
 	SET @valido = 0
 	SELECT @timeJaJogouDia = COUNT(dataJogo) FROM Jogos 
 		WHERE
-			(codigoTimeA = @timeA OR codigoTimeA = @timeB
-			OR
-			codigoTimeB = @timeA OR codigoTimeB = @timeB)
-			AND
 			datajogo = @dt
+			AND(
+			(codigoTimeA = @timeA OR codigoTimeB = @timeB)
+			OR
+			(codigoTimeA = @timeB OR codigoTimeB = @timeA))
 	IF(@timeJaJogouDia = 0)
 	BEGIN
 		SET @valido = 1
 	END
 END
---=============== Testes =====--
-DECLARE @valido BIT
-EXEC sp_jogoValido 4,2,'21/05/2021',@valido OUTPUT 
-print @valido
 
-INSERT INTO Jogos VALUES(1,2,0,0,'23/05/2021')
-DELETE FROM Jogos
 --======================================= PROCEDURE VERIFICAR DATA =======================================--
 --Verifica se a data já possui 8 jogos
 CREATE PROCEDURE sp_verificarData(@dt DATE,@valido BIT OUTPUT) 
@@ -92,87 +85,71 @@ BEGIN
 	END
 END
 
---=============== Testes =====--
-DECLARE @valido BIT
-EXEC sp_verificarData '21/05/2021',@valido OUTPUT 
-print @valido
-
-INSERT INTO Jogos 
-	VALUES
-		(1,5,0,0,'23/05/2021')
-		,(2,5,0,0,'23/05/2021')
-		,(3,5,0,0,'23/05/2021')
-		,(4,5,0,0,'23/05/2021')
-		,(5,5,0,0,'23/05/2021')
-		,(6,5,0,0,'23/05/2021')
-		,(7,5,0,0,'23/05/2021')
-		,(8,5,0,0,'23/05/2021')
-SELECT * FROM Jogos
-DELETE FROM Jogos WHERE codigoTimeA = 7 AND codigoTimeB = 5
 --======================================= PROCEDURE BUSCAR PROXIMA DATA =======================================--
 CREATE PROCEDURE sp_buscarProximaData(@dt DATE OUTPUT)
 AS
 BEGIN	
 	DECLARE @id INT,@datas INT
 	--verificando se a data que foi inserida é válida
-	SELECT @datas = COUNT(id) FROM fn_obterDatasValidas() WHERE dataJogo = @dt
+	SELECT @datas = COUNT(id) FROM fn_obterDatasValidasPrimeiraFase() WHERE dataJogo = @dt
 	IF(@datas > 0)
 	BEGIN
-		SELECT @datas = COUNT(id) FROM fn_obterDatasValidas()
-		SELECT @id = id FROM fn_obterDatasValidas() WHERE dataJogo = @dt
+		SELECT @datas = COUNT(id) FROM fn_obterDatasValidasPrimeiraFase()
+		SELECT @id = id FROM fn_obterDatasValidasPrimeiraFase() WHERE dataJogo = @dt
 		SET @id = @id + 1
 		IF(@id > @datas)
 		BEGIN
 			SET @id = 1
 		END
-		SELECT @dt = dataJogo FROM fn_obterDatasValidas() WHERE id = @id
+		SELECT @dt = dataJogo FROM fn_obterDatasValidasPrimeiraFase() WHERE id = @id
 	END
 	ELSE
 	BEGIN
-		SELECT @dt = dataJogo FROM fn_obterDatasValidas() WHERE id = 1
+		SELECT @dt = dataJogo FROM fn_obterDatasValidasPrimeiraFase() WHERE id = 1
 	END
 END
---===TESTE
-DECLARE @dt DATE
-SET @dt = '12/05/2021'
-EXEC sp_buscarProximaData @dt OUTPUT
-print @dt
+
 --======================================= PROCEDURE ALOCAR JOGO =======================================--
-CREATE PROCEDURE sp_alocarJogo(@codTimeA INT,@codTimeB INT,@dt DATE,@sucesso BIT OUTPUT)
+CREATE PROCEDURE sp_alocarJogo(@codTimeA INT,@codTimeB INT,@dt DATE,@erro INT OUTPUT)
 AS
 BEGIN
 	DECLARE @valido BIT
 	DECLARE @tentativas INT;
 	DECLARE @qtdDias INT
-	SELECT @qtdDias = COUNT(dataJogo) FROM fn_obterDatasValidas()
-	SET @qtdDias = @qtdDias + 1
+	SELECT @qtdDias = COUNT(dataJogo) FROM fn_obterDatasValidasPrimeiraFase()
+	SET @qtdDias = @qtdDias + 2
 	SET @tentativas = 0
-	SET @sucesso = 0
+	SET @erro = 0
 	WHILE(@tentativas < @qtdDias)
 	BEGIN		
+		SET @valido = 0
 		EXEC sp_jogoValido @codTimeA,@codTimeB,@valido OUTPUT 
 		IF(@valido = 1)		
 		BEGIN
+			SET @valido = 0
 			EXEC sp_verificarData @dt,@valido OUTPUT
 			IF(@valido = 1)
 			BEGIN
-				EXEC sp_jogoValidoDia 4,2,@dt,@valido OUTPUT
+				SET @valido = 0
+				EXEC sp_jogoValidoDia @codTimeA,@codTimeB,@dt,@valido OUTPUT
 				IF(@valido = 1)
 				BEGIN
 					INSERT INTO Jogos(codigoTimeA,codigoTimeB,datajogo) 
 					VALUES
 						(@codTimeA,@codTimeB,@dt)
-					SET @tentativas = 6
-					SET @sucesso = 1
+					SET @tentativas = @qtdDias
+					SET @erro = 0
 				END
 				ELSE
 				BEGIN
 					EXEC sp_buscarProximaData @dt OUTPUT
+					SET @erro = 3
 				END
 			END
 			ELSE
 			BEGIN
 				EXEC sp_buscarProximaData @dt OUTPUT
+				SET @erro = 2
 			END	
 		END
 		ELSE
@@ -187,20 +164,17 @@ BEGIN
 				datajogo = @dt
 			IF(@qtd > 0)
 			BEGIN
-				SET @sucesso = 1
+				SET @erro = 0
+			END
+			ELSE
+			BEGIN
+				SET @erro = 1
 			END
 		END
 		SET @tentativas = @tentativas + 1
 	END
 END
 
---=======TESTE==--
-DECLARE @sucesso BIT
-EXEC sp_alocarJogo 1,2,'12/05/2021', @sucesso OUTPUT
-print @sucesso
-
-SELECT * from Jogos
-DELETE FROM Jogos
 --======================================= FUNCTION BUSCAR GRUPO =======================================--
 CREATE FUNCTION fn_buscarGrupo(@num INT) 
 RETURNS @tbGrupo TABLE(grupo CHAR,codTime INT)
@@ -227,15 +201,13 @@ BEGIN
 		SELECT grupo,codigoTime from Grupos WHERE grupo = @grupo	
 	RETURN
 END
---teste
-SELECT * from fn_buscarGrupo(4)
 
 --======================================= PROCEDURE CRIAR JOGOS =======================================--
 CREATE PROCEDURE sp_criarJogos(@tb1 INT, @tb2 INT)
 AS
 BEGIN
 	DECLARE @qtdDias INT
-	SELECT @qtdDias = COUNT(dataJogo) FROM fn_obterDatasValidas()
+	SELECT @qtdDias = COUNT(dataJogo) FROM fn_obterDatasValidasPrimeiraFase()
 	DECLARE @i INT
 	DECLARE @counti INT,@countj INT
 	SET ROWCOUNT 0
@@ -257,10 +229,11 @@ BEGIN
 
 			SET ROWCOUNT 0
 				DECLARE @rand INT
-				SET @rand = (RAND()*@qtdDias)+1
-				DECLARE @dt DATE,@res BIT
-				SELECT @dt = dataJogo FROM fn_obterDatasValidas() WHERE id = @rand
+				SET @rand = 1
+				DECLARE @dt DATE,@res INT
+				SELECT @dt = dataJogo FROM fn_obterDatasValidasPrimeiraFase() WHERE id = @rand
 				EXEC sp_alocarJogo @i,@j,@dt,@res OUTPUT
+				PRINT CAST(@i AS char(2)) +' | '+CAST(@j AS char(2)) + ' | count' + CAST(@counti AS char(2)) +' | '+CAST(@countj AS char(2)) + ' | '+CAST(@res AS char)
 			DELETE #temp2 WHERE codTime = @j
 			SET ROWCOUNT 1
 			SELECT @j = codTime FROM #temp2
@@ -275,8 +248,6 @@ BEGIN
 	SET ROWCOUNT 0
 	DROP TABLE #temp1
 END
---=========TESTE
-EXEC sp_criarJogos 1,2
 
 --======================================= PROCEDURE CRIAR RODADAS =======================================--
 CREATE PROCEDURE sp_criarRodadas(@sucesso BIT OUTPUT)
@@ -300,7 +271,3 @@ BEGIN
 		SET @i = @i + 1
 	END
 END
---=== TESTE
-DECLARE @s BIT
-EXEC sp_criarRodadas @s OUTPUT
-PRINT @s
