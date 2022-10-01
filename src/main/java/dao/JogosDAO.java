@@ -16,13 +16,11 @@ public class JogosDAO extends DAO<Jogo> {
 	
 	@Override
 	public int create() throws SQLException {
-		String query = "{CALL sp_criarRodadas(?)}";
+		String query = "{CALL sp_criarRodadas}";
 		CallableStatement cs = cn.prepareCall(query);
-		cs.registerOutParameter(1, Types.BIT);
 		cs.execute();
-		int retorno = cs.getInt(1);
 		cs.close();		
-		return retorno;
+		return 1;
 	}
 
 	@Override
