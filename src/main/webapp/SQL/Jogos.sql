@@ -229,7 +229,7 @@ BEGIN
 
 			SET ROWCOUNT 0
 				DECLARE @rand INT
-				SET @rand = 1
+				SET @rand = (RAND()*@qtdDias)
 				DECLARE @dt DATE,@res INT
 				SELECT @dt = dataJogo FROM fn_obterDatasValidasPrimeiraFase() WHERE id = @rand
 				EXEC sp_alocarJogo @i,@j,@dt,@res OUTPUT
