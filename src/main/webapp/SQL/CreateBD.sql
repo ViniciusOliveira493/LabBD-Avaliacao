@@ -6,7 +6,7 @@ CREATE TABLE Times (codigoTime INT PRIMARY KEY, nomeTime VARCHAR(20), cidade VAR
 GO
 INSERT INTO Times VALUES
 	(1, 'Corinthians','São Paulo','Neo Química Arena'),
-    (2,'Palmeiras','São Paulo','Allianz Parque'),
+    	(2,'Palmeiras','São Paulo','Allianz Parque'),
 	(3,'Santos','Santos','Vila Belmiro'),
 	(4,'São Paulo','São Paulo','Morumbi'),
 	(5, 'Botafogo-SP', 'Ribeirão Preto','Santa Cruz'),
