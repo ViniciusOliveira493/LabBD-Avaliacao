@@ -250,7 +250,7 @@ BEGIN
 END
 
 --======================================= PROCEDURE CRIAR RODADAS =======================================--
-CREATE PROCEDURE sp_criarRodadas(@sucesso BIT OUTPUT)
+CREATE PROCEDURE sp_criarRodadas()
 AS
 BEGIN
 	DECLARE @i INT,@j INT
