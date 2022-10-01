@@ -229,7 +229,7 @@ BEGIN
 
 			SET ROWCOUNT 0
 				DECLARE @rand INT
-				SET @rand = (RAND()*@qtdDias)
+				SET @rand = 1
 				DECLARE @dt DATE,@res INT
 				SELECT @dt = dataJogo FROM fn_obterDatasValidasPrimeiraFase() WHERE id = @rand
 				EXEC sp_alocarJogo @i,@j,@dt,@res OUTPUT
@@ -250,7 +250,7 @@ BEGIN
 END
 
 --======================================= PROCEDURE CRIAR RODADAS =======================================--
-CREATE PROCEDURE sp_criarRodadas(@sucesso BIT OUTPUT)
+CREATE PROCEDURE sp_criarRodadas()
 AS
 BEGIN
 	DECLARE @i INT,@j INT
