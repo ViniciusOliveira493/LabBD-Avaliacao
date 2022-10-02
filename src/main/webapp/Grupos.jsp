@@ -29,8 +29,6 @@
 					<tr>
 						<td><c:out value="${g.codigo }" /></td>
 						<td><c:out value="${g.nome }" /></td>
-						<td><c:out value="${g.cidade }" /></td>
-						<td><c:out value="${g.estadio }" /></td>
 					</tr>
 				</c:forEach>
 				</tbody>

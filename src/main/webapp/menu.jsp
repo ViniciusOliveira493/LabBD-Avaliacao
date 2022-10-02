@@ -11,8 +11,9 @@
    <nav class="menu">
      <ul>
 	    <li><a href="./index.jsp">Home</a></li> 
+	    <li><a href="./times.jsp">Times</a></li>
 	    <li><a href="./jogos.jsp">Jogos</a></li>
-	    <li><a href="${pageContext.request.contextPath}/times">Times</a></li>
+
      </ul>
    	</nav>
 </body>

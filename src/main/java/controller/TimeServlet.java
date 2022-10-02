@@ -34,7 +34,7 @@ public class TimeServlet  extends HttpServlet {
 			e.printStackTrace();
 			erro = e.getMessage();
 		} finally {
-			RequestDispatcher rd = req.getRequestDispatcher("times.jsp");
+			RequestDispatcher rd = req.getRequestDispatcher("index.jsp");
 			req.setAttribute("times", times);
 			req.setAttribute("erro", erro);
 			rd.forward(req, resp);
@@ -50,7 +50,7 @@ public class TimeServlet  extends HttpServlet {
 			e.printStackTrace();
 			erro = e.getMessage();
 		} finally {
-			RequestDispatcher rd = req.getRequestDispatcher("times.jsp");
+			RequestDispatcher rd = req.getRequestDispatcher("index.jsp");
 			req.setAttribute("times", times);
 			req.setAttribute("erro", erro);
 			rd.forward(req, resp);
