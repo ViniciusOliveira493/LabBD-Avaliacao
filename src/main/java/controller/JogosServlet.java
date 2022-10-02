@@ -22,6 +22,7 @@ public class JogosServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private String erro = "";
 	private String msg = "";
+	private String data = "";
 	private List<Jogo> jogos = new ArrayList<>();
 	RequestDispatcher rd;
 	
@@ -48,8 +49,10 @@ public class JogosServlet extends HttpServlet {
 				iniciarRD(request,response);
 			}
 		}else {
-			String data = request.getParameter("txtData");	
-			jogos = listarJogos(LocalDate.parse(data));
+			String data = request.getParameter("txtData");
+			if(!data.equals("") && data != null) {
+				jogos = listarJogos(LocalDate.parse(data));
+			}			
 			iniciarRD(request,response);
 		}
 	}
@@ -71,6 +74,12 @@ public class JogosServlet extends HttpServlet {
 	
 	private List<Jogo> listarJogos(LocalDate dt) {
 		List<Jogo> jogos = null;
+		this.data = dt.toString();
+		
+		if(data.equals("")) {
+			return jogos;
+		}
+		
 		Conexao conn = new Conexao();
 		Connection cn = conn.getConexao();
 		try {
@@ -104,6 +113,7 @@ public class JogosServlet extends HttpServlet {
 		request.setAttribute("erro", erro);
 		request.setAttribute("res", msg);
 		request.setAttribute("jogos", jogos);
+		request.setAttribute("data", data);
 		rd.forward(request, response);
 	}
 }

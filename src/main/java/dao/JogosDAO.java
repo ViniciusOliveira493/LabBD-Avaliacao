@@ -42,9 +42,10 @@ public class JogosDAO {
 	public List<Jogo> listAll() throws SQLException {
 		List<Jogo> jogos = new ArrayList<Jogo>();
 		String query = "SELECT codigoTimeA AS cta, codigoTimeB as ctb"
-							  + ", golsTimeA as gta, golsTimeB as gtb, "
-							  + "datajogo "
-				      + "FROM Jogos";
+							  + ", golsTimeA as gta, golsTimeB as gtb"
+							  + ", CONVERT(VARCHAR(15),datajogo,103) AS datajogo "
+							  + ", datajogo as dt "
+				      + " FROM Jogos ORDER BY dt";
 		PreparedStatement pstm = cn.prepareStatement(query);
 		ResultSet rs = pstm.executeQuery();
 		while(rs.next()) {
@@ -53,7 +54,7 @@ public class JogosDAO {
 			j.setTimeB(encontrarTimePorCodigo(rs.getInt("ctb")));
 			j.setGolsTimeA(rs.getInt("gta"));
 			j.setGolsTimeB(rs.getInt("gtb"));
-			j.setDatajogo(LocalDate.parse(rs.getString("datajogo")));
+			j.setDatajogo(rs.getString("datajogo"));
 			jogos.add(j);
 		}
 		return jogos;
@@ -62,9 +63,9 @@ public class JogosDAO {
 	public List<Jogo> list(LocalDate dt) throws SQLException {
 		List<Jogo> jogos = new ArrayList<Jogo>();
 		String query = "SELECT codigoTimeA AS cta, codigoTimeB as ctb"
-							  + ", golsTimeA as gta, golsTimeB as gtb, "
-							  + "datajogo "
-				      + "FROM Jogos WHERE datajogo = ?";
+				  + ", golsTimeA as gta, golsTimeB as gtb"
+				  + ", CONVERT(VARCHAR(15),datajogo,103) AS datajogo "
+	      + " FROM Jogos WHERE dataJogo = ?";
 		PreparedStatement pstm = cn.prepareStatement(query);
 		pstm.setString(1, dt.toString());
 		ResultSet rs = pstm.executeQuery();
@@ -74,7 +75,7 @@ public class JogosDAO {
 			j.setTimeB(encontrarTimePorCodigo(rs.getInt("ctb")));
 			j.setGolsTimeA(rs.getInt("gta"));
 			j.setGolsTimeB(rs.getInt("gtb"));
-			j.setDatajogo(LocalDate.parse(rs.getString("datajogo")));
+			j.setDatajogo(rs.getString("datajogo"));
 			jogos.add(j);
 		}
 		return jogos;

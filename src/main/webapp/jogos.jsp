@@ -13,18 +13,22 @@
 		<main>
 			<div class="conteudo">
 				<form action="jogos" method="post">
-					<div>
-						<input class = "form-item" type="submit" name="btn" id="btn" value="Criar Jogos">
-					</div>
-					<div>
-						<input class = "form-item" type="date" name="txtData" id="txtData">		
-						<input class = "margin-top-10" type="submit" name="btn" id="btn" value="Pesquisar">	
-					</div>					
+					<table>
+						<tr>
+							<td>
+								<input class = "form-item" type="submit" name="btn" id="btn" value="Criar Jogos">
+							</td>
+							<td>
+								<input class = "inputTxt" type="date" name="txtData" id="txtData" value='<c:out value="${data}"></c:out>'>	
+								<input class = "" type="submit" name="btn" id="btn" value="Pesquisar">
+							</td>
+						</tr>
+					</table>				
 				</form>
 				<div class="center">
 					<c:if test="${not empty jogos}">
 						<div class="divTb">
-							<table border = "1">
+							<table class = "tbJogos" border = "1">
 								<thead>
 									<tr>
 										<th>

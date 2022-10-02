@@ -22,10 +22,15 @@ nav{
 	position: absolute;		
 }
 table{
+	min-width:90%;
+	margin-left:auto;
+	margin-right:auto;
+}
+.tbJogos{
 	margin-top:5%;
 }	
 .margin-top-10{
-	margin-top:10px;
+	margin-top:120px;
 }
 .form-item{
 	min-width:30%;	
@@ -36,7 +41,11 @@ table{
 	text-align:center;
 	margin-left: auto;
     margin-right: auto;
-    min-width:8em;
+   
+}
+.inputTxt{
+	 min-width:50%;
+	 height:20px;
 }
 .center{
 	margin-left: auto;
