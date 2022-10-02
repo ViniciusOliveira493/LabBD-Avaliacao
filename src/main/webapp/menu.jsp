@@ -8,11 +8,13 @@
 <title></title>
 </head>
 <body>
-	   <nav class="menu">
-     <ul>
-    <li> <a href="./index.jsp"> Home</a></li> 
-     <li><a href="./jogos.jsp">	Jogos</a></li>
-     </ul>
-     </nav>
+	<nav class="menu">
+		<h1 class="titulo">Campeonato Paulista</h1>
+		<ul>
+		  <li> <a href="./home.jsp">Home</a></li> 
+		  <li> <a href="./grupo.jsp">Grupos</a></li> 
+		  <li><a href="${pageContext.request.contextPath}/jogos">Jogos</a></li>
+		</ul>
+	</nav>
 </body>
 </html>

@@ -19,8 +19,7 @@ public class Conexao {
         + "databaseName="+bd+";"
         + "user="+login+";"
         + "password="+senha+";"+
-        "encrypt=true;trustServerCertificate=true";
-       
+        "encrypt=true;trustServerCertificate=true";       
 		Connection conn = null;
 		try {
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");

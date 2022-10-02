@@ -8,21 +8,13 @@
 <link href="./css/estilo.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-
-
-	<div class="container" id="topo">
-		<header class="cabecalho" id="home">
-
-			<h1 class="titulo">Campeonato Paulista</h1>
-			<jsp:include page="menu.jsp" />
-		</header>
-		<br />
+	<jsp:include page="menu.jsp" />
+	<main>
 		<section class="conteudo">
 			<form action="Grupos" method="post">
 			
 			</form>
 		</section>
-	</div>
-
+	</main>		
 </body>
 </html>
