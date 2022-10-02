@@ -12,11 +12,5 @@
 			<input type="password" name="txtPass" id="txtPass">
 			<input type="submit" name="btnSub" id="btnSub" value="send">
 		</form>
-		
-		<form action="jogos" method="get">
-			<input type="text" name="txtUsr" id="txtUsr">
-			<input type="password" name="txtPass" id="txtPass">
-			<input type="submit" name="btnSub" id="btnSub" value="send">
-		</form>
 	</body>
 </html>
