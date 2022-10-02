@@ -2,7 +2,7 @@ package model;
 
 public class Grupo {
 	private char grupo;
-	private int time;
+	private Time time;
 	
 	public char getGrupo() {
 		return grupo;
@@ -10,12 +10,13 @@ public class Grupo {
 	public void setGrupo(char grupo) {
 		this.grupo = grupo;
 	}
-	public int getTime() {
+	public Time getTime() {
 		return time;
 	}
-	public void setTime(int time) {
+	public void setTime(Time time) {
 		this.time = time;
 	}
+	
 
 	
 	

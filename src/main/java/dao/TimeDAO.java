@@ -1,7 +1,10 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import model.Time;
@@ -38,8 +41,21 @@ public class TimeDAO extends DAO<Time>{
 
 	@Override
 	public List<Time> listAll() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		String query = "SELECT * FROM Times";
+		PreparedStatement ps =  cn.prepareStatement(query);
+		ResultSet rs = ps.executeQuery();
+		List<Time> times = new ArrayList<Time>();
+		while (rs.next()) {
+			Time t = new Time();
+			t.setCodigoTime(rs.getInt("CodigoTime"));
+			t.setNomeTime(rs.getString("Nome"));
+			t.setCidade(rs.getString("Cidade"));
+			t.setEstadio(rs.getString("Estadio"));
+			times.add(t);
+		}
+		rs.close();
+		ps.close();
+		return times;
 	}
 
 }

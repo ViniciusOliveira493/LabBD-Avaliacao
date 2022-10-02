@@ -8,11 +8,12 @@
 <title></title>
 </head>
 <body>
-	   <nav class="menu">
+   <nav class="menu">
      <ul>
-    <li> <a href="./index.jsp"> Home</a></li> 
-     <li><a href="./jogos.jsp">	Jogos</a></li>
+	    <li><a href="./index.jsp">Home</a></li> 
+	    <li><a href="./jogos.jsp">Jogos</a></li>
+	    <li><a href="${pageContext.request.contextPath}/times">Times</a></li>
      </ul>
-     </nav>
+   	</nav>
 </body>
 </html>
