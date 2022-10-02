@@ -5,13 +5,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Times</title>
-<link href="./css/estilo.css" rel="stylesheet" type="text/css">
+<title>Grupos</title>
 </head>
-<body>
-
-
-	<div class="container" id="topo">
+<div class="container" id="topo">
 		<header class="cabecalho" id="home">
 
 			<h1 class="titulo">Campeonato Paulista</h1>
@@ -20,23 +16,21 @@
 		<br />
 		<section class="conteudo">
 			<div align="center">
-		<c:if test="${not empty Times }">
+		<c:if test="${not empty Grupos }">
 			<table class="table_round">
 				<thead>
 					<tr>
-						<th><b>#codigo</b></th>
-						<th><b>Nome</b></th>
-						<th><b>Cidade</b></th>
-						<th><b>Estadio</b></th>
+						<th><b>#Grupo</b></th>
+						<th><b>CodigoTime</b></th>
 					</tr>
 				</thead>
 				<tbody>
-				<c:forEach items="${Times }" var="t">
+				<c:forEach items="${Grupos }" var="g">
 					<tr>
-						<td><c:out value="${t.codigo }" /></td>
-						<td><c:out value="${t.nome }" /></td>
-						<td><c:out value="${t.cidade }" /></td>
-						<td><c:out value="${t.estadio }" /></td>
+						<td><c:out value="${g.codigo }" /></td>
+						<td><c:out value="${g.nome }" /></td>
+						<td><c:out value="${g.cidade }" /></td>
+						<td><c:out value="${g.estadio }" /></td>
 					</tr>
 				</c:forEach>
 				</tbody>
@@ -44,7 +38,7 @@
 		</c:if>
 	</div>
 			<form>
-			<input type="submit" name="btnSub" id="btnSub" value="Gerar Grupos">
+			<input type="submit" name="btnSub" id="btnSub" value="Gerar grupos novamente">
 			</form>
 		</section>
 	</div>
