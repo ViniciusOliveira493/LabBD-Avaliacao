@@ -12,7 +12,7 @@
 		<h1 class="titulo">Campeonato Paulista</h1>
 		<ul>
 		  <li><a href="${pageContext.request.contextPath}/times">Home</a></li>
-		  <li> <a href="./grupos.jsp">Grupos</a></li> 
+		 <li><a href="${pageContext.request.contextPath}/grupos">Grupos</a></li>
 		  <li><a href="${pageContext.request.contextPath}/jogos">Jogos</a></li>
 		</ul>
 	</nav>
