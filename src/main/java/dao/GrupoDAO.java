@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.CallableStatement;
+import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -43,10 +44,19 @@ public class GrupoDAO extends DAO<Grupo> {
 	@Override
 	public List<Grupo> listAll() throws SQLException {
 		List<Grupo> grupos = new ArrayList<Grupo>();
-		StringBuffer sql = new StringBuffer();
-		sql.append("{CALL sp_inseretime } ");
-		CallableStatement cs = cn.prepareCall(sql.toString());
-		ResultSet rs = cs.executeQuery();
+		String sql = "{CALL sp_inseretime } ";
+		CallableStatement cs = cn.prepareCall(sql);
+		cs.execute();
+		cs.close();	
+		StringBuffer query = new StringBuffer();
+		query.append("SELECT gr.Grupo,tm.NomeTime,tm.Cidade,tm.Estadio ");
+		query.append("FROM Times tm LEFT OUTER JOIN Grupos gr ");
+		query.append("ON gr.CodigoTime = tm.CodigoTime ");
+		query.append("ORDER BY gr.Grupo ");
+	
+		PreparedStatement ps = cn.prepareStatement(query.toString());
+	
+		ResultSet rs = ps.executeQuery();
 		while (rs.next()) {
 			Time t = new Time(); 
 			t.setCodigoTime(rs.getInt("codigoTime"));
@@ -58,10 +68,9 @@ public class GrupoDAO extends DAO<Grupo> {
 			g.setGrupo(rs.getString("Grupo").charAt(0));
 			g.setTime(t);
 			grupos.add(g);
-		}
-		cs.execute();
-		cs.close();		
-		
+		}	
+		ps.close();
+		rs.close();
 		return grupos;
 	}
 

@@ -86,13 +86,7 @@ END CATCH
 END
 SET @tam1 = (SELECT COUNT(*) FROM Grupos)
 END
-SELECT gr.Grupo
-,tm.NomeTime
-,tm.Cidade
-,tm.Estadio
-FROM Times tm LEFT OUTER JOIN Grupos gr
-ON gr.CodigoTime = tm.CodigoTime
-ORDER BY gr.Grupo
 
 
-EXEC sp_inseretime
+
+--EXEC sp_inseretime
