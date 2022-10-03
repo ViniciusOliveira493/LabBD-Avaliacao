@@ -9,53 +9,41 @@ import java.util.List;
 
 import model.Time;
 
-public class TimeDAO extends DAO<Time>{
-	
+public class TimeDAO{
+	Connection cn = null;
 	public TimeDAO(Connection cn) {
 		this.cn = cn;
 	}
 	
-	@Override
-	public int create() throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
 	public Time read(Time obj) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int update(Time obj) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int delete(Time obj) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public List<Time> listAll() throws SQLException {
-		String query = "SELECT * FROM Times";
-		PreparedStatement ps =  cn.prepareStatement(query);
-		ResultSet rs = ps.executeQuery();
-		List<Time> times = new ArrayList<Time>();
-		while (rs.next()) {
-			Time t = new Time();
-			t.setCodigoTime(rs.getInt("codigoTime"));
-			t.setNomeTime(rs.getString("nomeTime"));
-			t.setCidade(rs.getString("cidade"));
-			t.setEstadio(rs.getString("estadio"));
-			times.add(t);
+		String query = "SELECT codigoTime, nomeTime, cidade, estadio "
+						+ "FROM Times WHERE codigoTime = ?";
+		PreparedStatement pstm = cn.prepareStatement(query);
+		pstm.setInt(1, obj.getCodigoTime());
+		ResultSet rs = pstm.executeQuery();
+		while(rs.next()) {
+			obj.setCodigoTime(rs.getInt("codigoTime"));
+			obj.setNomeTime(rs.getString("nomeTime"));
+			obj.setCidade(rs.getString("cidade"));
+			obj.setEstadio(rs.getString("estadio"));
 		}
-		rs.close();
-		ps.close();
-		return times;
+		return obj;
 	}
-
+	
+	public List<Time> listAll() throws SQLException {
+		List<Time> lista = new ArrayList<>();
+		String query = "SELECT codigoTime, nomeTime, cidade, estadio "
+				+ "FROM Times";
+		PreparedStatement pstm = cn.prepareStatement(query);
+		ResultSet rs = pstm.executeQuery();
+		while(rs.next()) {
+			Time obj = new Time();
+			obj.setCodigoTime(rs.getInt("codigoTime"));
+			obj.setNomeTime(rs.getString("nomeTime"));
+			obj.setCidade(rs.getString("cidade"));
+			obj.setEstadio(rs.getString("estadio"));
+			lista.add(obj);
+		}
+		return lista;
+	}
 }

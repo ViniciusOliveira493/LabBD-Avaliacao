@@ -7,7 +7,7 @@ public class Jogo {
 	private Time timeB;
 	private int golsTimeA;
 	private int golsTimeB;
-	private LocalDate datajogo;
+	private String datajogo;
 	
 	
 	public Time getTimeA() {
@@ -34,10 +34,11 @@ public class Jogo {
 	public void setGolsTimeB(int golsTimeB) {
 		this.golsTimeB = golsTimeB;
 	}
-	public LocalDate getDatajogo() {
+	public String getDatajogo() {
 		return datajogo;
 	}
-	public void setDatajogo(LocalDate datajogo) {
+	public void setDatajogo(String datajogo) {
 		this.datajogo = datajogo;
 	}
+	
 }
