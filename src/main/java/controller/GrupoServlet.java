@@ -3,17 +3,20 @@ package controller;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import dao.Conexao;
 import dao.GrupoDAO;
-import dao.JogosDAO;
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.Grupo;
 
-@WebServlet("/Grupo")
+@WebServlet("/grupos")
 public class GrupoServlet extends HttpServlet {
 		private static final long serialVersionUID = 1L;
 	       
@@ -22,17 +25,33 @@ public class GrupoServlet extends HttpServlet {
 	    }
 	    
 	    
-	    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    	Conexao conn = new Conexao();
+	    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+			List<Grupo> grupos = new ArrayList<>();
+			String erro = "";
+			try {
+				grupos = getGrupos();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				erro = e.getMessage();
+			} finally {
+				RequestDispatcher rd = req.getRequestDispatcher("Grupo.jsp");
+				req.setAttribute("grupos", grupos);
+				req.setAttribute("erro", erro);
+				rd.forward(req, resp);
+			}
+		}
+	    
+		public List<Grupo> getGrupos() throws SQLException {
+			Conexao conn = new Conexao();
 			Connection cn = null;
 			try {
 				cn = conn.getConexao();
-				GrupoDAO g = new GrupoDAO(cn);
-				System.out.println(g.listAll());
-			} catch (SQLException e) {
-				e.printStackTrace();
+				GrupoDAO d = new GrupoDAO(cn);
+				return d.listAll();
 			} finally {
 				conn.close(cn);
 			}
 		}
-}
+	    
+		}
+

@@ -49,6 +49,10 @@ public class GrupoDAO extends DAO<Grupo> {
 		ResultSet rs = cs.executeQuery();
 		while (rs.next()) {
 			Time t = new Time(); 
+			t.setCodigoTime(rs.getInt("codigoTime"));
+			t.setNomeTime(rs.getString("nomeTime"));
+			t.setCidade(rs.getString("cidade"));
+			t.setEstadio(rs.getString("estadio"));
 			
 			Grupo g = new Grupo();
 			g.setGrupo(rs.getString("Grupo").charAt(0));

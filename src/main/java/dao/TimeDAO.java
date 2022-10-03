@@ -47,10 +47,10 @@ public class TimeDAO extends DAO<Time>{
 		List<Time> times = new ArrayList<Time>();
 		while (rs.next()) {
 			Time t = new Time();
-			t.setCodigoTime(rs.getInt("CodigoTime"));
-			t.setNomeTime(rs.getString("Nome"));
-			t.setCidade(rs.getString("Cidade"));
-			t.setEstadio(rs.getString("Estadio"));
+			t.setCodigoTime(rs.getInt("codigoTime"));
+			t.setNomeTime(rs.getString("nomeTime"));
+			t.setCidade(rs.getString("cidade"));
+			t.setEstadio(rs.getString("estadio"));
 			times.add(t);
 		}
 		rs.close();

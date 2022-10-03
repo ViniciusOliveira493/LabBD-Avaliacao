@@ -11,7 +11,7 @@
    <nav class="menu">
      <ul>
 	    <li><a href="./index.jsp">Home</a></li> 
-	    <li><a href="./times.jsp">Times</a></li>
+	    <li><a href="./Grupos.jsp">Grupos</a></li>
 	    <li><a href="./jogos.jsp">Jogos</a></li>
 
      </ul>
