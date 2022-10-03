@@ -15,5 +15,9 @@ public class Grupo {
 	}
 	public void setTime(Time time) {
 		this.time = time;
-	}	
+	}
+	
+
+	
+	
 }
