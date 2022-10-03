@@ -122,6 +122,7 @@
 								<td><c:out value="${g.time.estadio }" /></td>
 							</tr>
 							</c:if>
+							
 						</c:forEach>
 					</tbody>
 				</table>
