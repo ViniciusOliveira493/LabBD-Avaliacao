@@ -1,5 +1,6 @@
 CREATE PROCEDURE sp_inseretime
 AS
+DELETE FROM Grupos
 --Gerando Primeiros Quatro Times
 DECLARE @GrupoA CHAR, @GrupoB CHAR, @GrupoC CHAR, @GrupoD CHAR, @time1 INT, @time2 INT, @time3 INT, @time4 INT
 SET @GrupoA = 'A' 
@@ -85,9 +86,13 @@ END CATCH
 END
 SET @tam1 = (SELECT COUNT(*) FROM Grupos)
 END
+SELECT gr.Grupo
+,tm.NomeTime
+,tm.Cidade
+,tm.Estadio
+FROM Times tm LEFT OUTER JOIN Grupos gr
+ON gr.CodigoTime = tm.CodigoTime
+ORDER BY gr.Grupo
+
 
 EXEC sp_inseretime
-GO
-SELECT * 
-FROM Grupos
-ORDER BY Grupo
