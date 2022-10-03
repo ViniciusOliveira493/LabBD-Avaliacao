@@ -38,7 +38,7 @@ public class GrupoDAO extends DAO<Grupo> {
 			t.setEstadio(rs.getString("estadio"));
 			
 			Grupo g = new Grupo();
-			g.setGrupo(rs.getString("Grupo").charAt(0));
+			g.setGrupo(rs.getString("Grupo"));
 			g.setTime(t);
 			grupos.add(g);
 		}	
@@ -93,7 +93,7 @@ public class GrupoDAO extends DAO<Grupo> {
 			t.setEstadio(rs.getString("estadio"));
 			
 			Grupo g = new Grupo();
-			g.setGrupo(rs.getString("Grupo").charAt(0));
+			g.setGrupo(rs.getString("Grupo"));
 			g.setTime(t);
 			grupos.add(g);
 		}	

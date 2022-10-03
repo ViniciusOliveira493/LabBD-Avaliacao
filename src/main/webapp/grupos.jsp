@@ -32,7 +32,7 @@
 					</thead>
 					<tbody>
 						<c:forEach items="${grupos }" var="g">
-						<c:if test="${g.grupo == 'A' }">
+						<c:if test="${ g.grupo == 'A' }">
 							<tr>
 								<td><c:out value="${g.grupo }" /></td>
 								<td><c:out value="${g.time.codigoTime }" /></td>
@@ -40,7 +40,7 @@
 								<td><c:out value="${g.time.cidade }" /></td>
 								<td><c:out value="${g.time.estadio }" /></td>
 							</tr>
-							</c:if>
+						</c:if>
 						</c:forEach>
 					</tbody>
 				</table>

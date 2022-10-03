@@ -1,13 +1,14 @@
 package model;
 
 public class Grupo {
-	private char grupo;
+	private String grupo;
 	private Time time;
 	
-	public char getGrupo() {
+	
+	public String getGrupo() {
 		return grupo;
 	}
-	public void setGrupo(char grupo) {
+	public void setGrupo(String grupo) {
 		this.grupo = grupo;
 	}
 	public Time getTime() {
