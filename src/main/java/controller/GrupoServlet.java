@@ -24,6 +24,9 @@ public class GrupoServlet extends HttpServlet {
 	        super();
 	    }
 	    
+	    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	    	//TODO
+	    }
 	    
 	    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 			List<Grupo> grupos = new ArrayList<>();

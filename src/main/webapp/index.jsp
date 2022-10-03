@@ -11,7 +11,8 @@
 	<body>
 		<jsp:include page="./menu.jsp" />
 		<section class="conteudo">	
-			<form action="times" method="post"><button type="submit">Buscar</button></form>
+			<form action="times" method="post">
+				<!--<button type="submit">Buscar</button></form>-->
 			<div align="center">
 				<c:if test="${not empty erro }">
 					<H2>
