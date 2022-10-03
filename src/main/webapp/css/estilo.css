@@ -1,0 +1,172 @@
+@charset "UTF-8";
+:root {
+	--cor-principal: #003F7D;
+	--cor-secundaria: #FD7702;
+}
+
+body{
+	background-size: 100%;
+	height: 775px;
+	background-color: var(--cor-secundaria);
+}
+	
+	
+*{padding: 0; margin: 0;}	
+	
+nav{
+	width: 100%;
+	height: 100px;
+	background-size: cover;
+	background-attachment: fixed;
+	background-color: var(--cor-principal);
+	position: absolute;		
+}
+table{
+	min-width:90%;
+	margin-left:auto;
+	margin-right:auto;
+}
+.tbJogos{
+	margin-top:5%;
+}	
+.margin-top-10{
+	margin-top:120px;
+}
+.form-item{
+	min-width:30%;	
+	min-height:30px;	
+}
+
+.coluna{
+	text-align:center;
+	margin-left: auto;
+    margin-right: auto;
+   
+}
+.inputTxt{
+	 min-width:50%;
+	 height:20px;
+}
+.center{
+	margin-left: auto;
+    margin-right: auto;
+    width:70%;
+}
+.container{
+	width: 100%;
+	height:100%;
+    position:static;	
+}
+	
+.conteudo{
+    width: 100%;
+    height: 1000px;
+    float: left;
+	margin-top:100px;
+	padding:10px;
+}
+
+input[type=submit] {
+	border: 5px solid blue;
+	color: black;
+	background-color: white;
+	border-radius: 4px;
+	font-size: 20px;
+}
+
+input[type=submit]:hover {
+	background-color: blue;
+	color: white;
+}
+
+.menu ul{ list-style: none;}
+
+.menu ul a{
+	width:auto;
+	height: auto;
+	
+	float: left;
+	text-decoration: none;
+	font-size: 175%;
+	color: #fff;
+	position: relative;
+	left: 600px;
+	top:-50px;
+	margin-left:30px;
+}
+.menu ul a:hover{
+	width:auto;
+	height: auto;
+
+	float: left;
+	text-decoration: none;
+	font-size: 175%;
+	color: #99AFDD;
+	position: relative;
+	left: 600px;
+	top:-50px;
+	margin-left:30px;
+}
+
+h2 {
+	color: red;
+}
+
+h3 {
+	color: blue;
+}
+
+.titulo{
+	padding: 10px;
+	font-size: 50px;
+	left: 0px;
+	font-family:Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, "sans-serif";
+	color: rgba(255,255,255,1.00);
+}
+
+.rodape{
+    width: 100%;
+    height: 150px;
+    float: left;
+    background-color: #1C1C1C;
+
+}
+
+.id_input_data {
+	border: 3px solid black;
+	border-radius: 4px;
+	height: 30px;
+	width: 50px;
+	font-size: 20px;
+}
+
+.date_input_data {
+	border: 3px solid black;
+	border-radius: 4px;
+	height: 30px;
+	width: 180px;
+	font-size: 20px;
+}
+
+.input_data {
+	border: 3px solid black;
+	border-radius: 4px;
+	height: 30px;
+	width: 350px;
+	font-size: 20px;
+}
+
+.table_round {
+	border: 1px solid black;
+	border-radius: 10px;
+}
+
+.th_dash {
+	border: 0.5px solid blue;
+	border-style: dashed;
+}
+
+.td_groove {
+	border: 0.5px solid red;
+	border-style: groove;
+}
