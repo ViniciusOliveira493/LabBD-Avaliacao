@@ -1,5 +1,6 @@
 CREATE PROCEDURE sp_inseretime
 AS
+DELETE FROM Grupos
 --Gerando Primeiros Quatro Times
 DECLARE @GrupoA CHAR, @GrupoB CHAR, @GrupoC CHAR, @GrupoD CHAR, @time1 INT, @time2 INT, @time3 INT, @time4 INT
 SET @GrupoA = 'A' 
@@ -86,8 +87,6 @@ END
 SET @tam1 = (SELECT COUNT(*) FROM Grupos)
 END
 
-EXEC sp_inseretime
-GO
-SELECT * 
-FROM Grupos
-ORDER BY Grupo
+
+
+--EXEC sp_inseretime
