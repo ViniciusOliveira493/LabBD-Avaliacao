@@ -49,8 +49,9 @@ public class GrupoDAO extends DAO<Grupo> {
 		cs.execute();
 		cs.close();	
 		StringBuffer query = new StringBuffer();
-		query.append("SELECT gr.Grupo,tm.NomeTime,tm.Cidade,tm.Estadio ");
-		query.append("FROM Times tm LEFT OUTER JOIN Grupos gr ");
+		query.append("SELECT gr.Grupo AS Grupo,tm.CodigoTime AS codigoTime,tm.NomeTime AS nomeTime,tm.Cidade AS cidade"
+				+ ",tm.Estadio as estadio ");
+		query.append("FROM Times tm INNER JOIN Grupos gr ");
 		query.append("ON gr.CodigoTime = tm.CodigoTime ");
 		query.append("ORDER BY gr.Grupo ");
 	

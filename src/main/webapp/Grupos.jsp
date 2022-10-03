@@ -37,7 +37,7 @@
 						<c:forEach items="${grupos }" var="g">
 							<tr>
 								<td><c:out value="${g.grupo }" /></td>
-								<td><c:out value="${g.codigoTime }" /></td>
+								<td><c:out value="${g.time.codigoTime }" /></td>
 							</tr>
 						</c:forEach>
 					</tbody>

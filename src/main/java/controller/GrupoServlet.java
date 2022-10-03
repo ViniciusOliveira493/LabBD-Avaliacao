@@ -34,7 +34,7 @@ public class GrupoServlet extends HttpServlet {
 				e.printStackTrace();
 				erro = e.getMessage();
 			} finally {
-				RequestDispatcher rd = req.getRequestDispatcher("Grupo.jsp");
+				RequestDispatcher rd = req.getRequestDispatcher("Grupos.jsp");
 				req.setAttribute("grupos", grupos);
 				req.setAttribute("erro", erro);
 				rd.forward(req, resp);
