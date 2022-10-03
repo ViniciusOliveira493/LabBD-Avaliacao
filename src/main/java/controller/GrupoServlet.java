@@ -19,16 +19,12 @@ import model.Grupo;
 @WebServlet("/grupos")
 public class GrupoServlet extends HttpServlet {
 		private static final long serialVersionUID = 1L;
-	       
+		private String erro = "";   
 	    public GrupoServlet() {
 	        super();
 	    }
 	    
 	    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-	    	//TODO
-	    }
-	    
-	    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 			List<Grupo> grupos = new ArrayList<>();
 			String erro = "";
 			try {
@@ -42,9 +38,25 @@ public class GrupoServlet extends HttpServlet {
 				req.setAttribute("erro", erro);
 				rd.forward(req, resp);
 			}
+	    }
+	    
+	    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+			List<Grupo> grupos = new ArrayList<>();
+			String erro = "";
+			try {
+				grupos = createGrupos();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				erro = e.getMessage();
+			} finally {
+				RequestDispatcher rd = req.getRequestDispatcher("grupos.jsp");
+				req.setAttribute("grupos", grupos);
+				req.setAttribute("erro", erro);
+				rd.forward(req, resp);
+			}
 		}
 	    
-		public List<Grupo> getGrupos() throws SQLException {
+		public List<Grupo> createGrupos() throws SQLException {
 			Conexao conn = new Conexao();
 			Connection cn = null;
 			try {
@@ -56,5 +68,17 @@ public class GrupoServlet extends HttpServlet {
 			}
 		}
 	    
+		public List<Grupo> getGrupos() throws SQLException {
+			Conexao conn = new Conexao();
+			Connection cn = null;
+			try {
+				cn = conn.getConexao();
+				GrupoDAO d = new GrupoDAO(cn);
+				return d.listAll2();
+			} finally {
+				conn.close(cn);
+			}
+		}
+		
 		}
 

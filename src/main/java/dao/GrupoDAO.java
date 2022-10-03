@@ -18,13 +18,7 @@ public class GrupoDAO extends DAO<Grupo> {
 	}
 	
 	@Override
-	public int create() throws SQLException {
-
-		return 0;
-	}
-
-	@Override
-	public Grupo read(Grupo obj) throws SQLException {
+	public List<Grupo> listAll2() throws SQLException {
 		List<Grupo> grupos = new ArrayList<Grupo>();
 		StringBuffer query = new StringBuffer();
 		query.append("SELECT gr.Grupo AS Grupo,tm.CodigoTime AS codigoTime,tm.NomeTime AS nomeTime,tm.Cidade AS cidade"
@@ -51,6 +45,13 @@ public class GrupoDAO extends DAO<Grupo> {
 		ps.close();
 		rs.close();
 		return grupos;
+	}
+
+
+	@Override
+	public Grupo read(Grupo obj) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
@@ -74,7 +75,6 @@ public class GrupoDAO extends DAO<Grupo> {
 		CallableStatement cs = cn.prepareCall(sql);
 		cs.execute();
 		cs.close();	
-		
 		StringBuffer query = new StringBuffer();
 		query.append("SELECT gr.Grupo AS Grupo,tm.CodigoTime AS codigoTime,tm.NomeTime AS nomeTime,tm.Cidade AS cidade"
 				+ ",tm.Estadio as estadio ");
@@ -101,5 +101,12 @@ public class GrupoDAO extends DAO<Grupo> {
 		rs.close();
 		return grupos;
 	}
+
+	@Override
+	public int create() throws SQLException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 
 }

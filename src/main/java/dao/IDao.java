@@ -9,4 +9,5 @@ public interface IDao<T> {
 	public int update(T obj)  throws SQLException;
 	public int delete(T obj)  throws SQLException;
 	public List<T> listAll()  throws SQLException;
+	List<T> listAll2() throws SQLException;
 }
