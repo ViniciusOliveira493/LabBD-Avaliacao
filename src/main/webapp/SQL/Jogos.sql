@@ -19,7 +19,7 @@ BEGIN
 	END
 	RETURN
 END
-
+GO
 --======================== FUNCTION OBTER DATAS PRIMEIRA FASE ============--
 CREATE FUNCTION fn_obterDatasValidasPrimeiraFase()
 RETURNS @tab TABLE(id INT,dataJogo DATE)
@@ -29,7 +29,7 @@ BEGIN
 		SELECT id,dataJogo from fn_obterDatasValidas('2021-02-27','2021-04-07')
 	RETURN
 END
-
+GO
 --======================================= PROCEDURE JOGO VALIDO =======================================--
 CREATE PROCEDURE sp_jogoValido(@timeA INT, @timeB INT,@valido BIT OUTPUT)
 AS
@@ -49,7 +49,7 @@ BEGIN
 		SET @valido = 1
 	END
 END
-
+GO
 --======================================= PROCEDURE JOGO VALIDO DIA=======================================--
 CREATE PROCEDURE sp_jogoValidoDia(@timeA INT, @timeB INT,@dt DATE,@valido BIT OUTPUT)
 AS
@@ -69,7 +69,7 @@ BEGIN
 		SET @valido = 1
 	END
 END
-
+GO
 --======================================= PROCEDURE VERIFICAR DATA =======================================--
 --Verifica se a data já possui 8 jogos
 CREATE PROCEDURE sp_verificarData(@dt DATE,@valido BIT OUTPUT) 
@@ -84,7 +84,7 @@ BEGIN
 		SET @valido = 0
 	END
 END
-
+GO
 --======================================= PROCEDURE BUSCAR PROXIMA DATA =======================================--
 CREATE PROCEDURE sp_buscarProximaData(@dt DATE OUTPUT)
 AS
@@ -108,7 +108,7 @@ BEGIN
 		SELECT @dt = dataJogo FROM fn_obterDatasValidasPrimeiraFase() WHERE id = 1
 	END
 END
-
+GO
 --======================================= PROCEDURE ALOCAR JOGO =======================================--
 CREATE PROCEDURE sp_alocarJogo(@codTimeA INT,@codTimeB INT,@dt DATE,@erro INT OUTPUT)
 AS
@@ -174,7 +174,7 @@ BEGIN
 		SET @tentativas = @tentativas + 1
 	END
 END
-
+GO
 --======================================= FUNCTION BUSCAR GRUPO =======================================--
 CREATE FUNCTION fn_buscarGrupo(@num INT) 
 RETURNS @tbGrupo TABLE(grupo CHAR,codTime INT)
@@ -201,7 +201,7 @@ BEGIN
 		SELECT grupo,codigoTime from Grupos WHERE grupo = @grupo	
 	RETURN
 END
-
+GO
 --======================================= PROCEDURE CRIAR JOGOS =======================================--
 CREATE PROCEDURE sp_criarJogos(@tb1 INT, @tb2 INT)
 AS
@@ -248,9 +248,9 @@ BEGIN
 	SET ROWCOUNT 0
 	DROP TABLE #temp1
 END
-
+GO
 --======================================= PROCEDURE CRIAR RODADAS =======================================--
-CREATE PROCEDURE sp_criarRodadas()
+CREATE PROCEDURE sp_criarRodadas
 AS
 BEGIN
 	DECLARE @i INT,@j INT
