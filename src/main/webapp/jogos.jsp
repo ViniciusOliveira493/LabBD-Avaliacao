@@ -28,7 +28,7 @@
 				<div class="center">
 					<c:if test="${not empty jogos}">
 						<div class="divTb">
-							<table class = "tbJogos" border = "1">
+							<table class = "tbJogos" id="tbJogos" border = "1">
 								<thead>
 									<tr>
 										<th>
@@ -77,6 +77,9 @@
 								</tbody>
 							</table>
 						</div>
+						<div>
+							<input type="button" id="btnVisualizarJogo" value="Ver jogo"/>
+						</div>
 					</c:if>
 					<c:if test="${empty jogos}">
 						<p>Não há rodadas nessa data</p>
@@ -84,5 +87,6 @@
 				</div>
 			</div>
 		</main>
+		<script type="text/javascript" src="./js/script.js"></script>
 	</body>
 </html>

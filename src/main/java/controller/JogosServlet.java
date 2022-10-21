@@ -37,7 +37,7 @@ public class JogosServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String btn = request.getParameter("btn");	
-		
+		System.out.println(request.toString());
 		if(btn.equals("Criar Jogos")) {
 			if(createJogos()==1) {
 				msg = "Jogos criados com sucesso";

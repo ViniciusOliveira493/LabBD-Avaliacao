@@ -2,6 +2,7 @@
 :root {
 	--cor-principal: #003F7D;
 	--cor-secundaria: #FD7702;
+	--destaque:lightgreen;
 }
 
 body{
@@ -65,7 +66,9 @@ table{
 	margin-top:100px;
 	padding:10px;
 }
-
+.selected{
+	background-color:var(--destaque);
+}
 input[type=submit] {
 	border: 5px solid blue;
 	color: black;
