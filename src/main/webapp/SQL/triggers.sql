@@ -1,4 +1,5 @@
 USE AVL1LabBD
+GO
 --==================================================
 CREATE FUNCTION fn_verificarQtdJogos() RETURNS INT
 AS
@@ -8,8 +9,6 @@ BEGIN
 	FROM Jogos
 	RETURN @jogos
 END
-
-SELECT dbo.fn_verificarQtdJogos() 
 GO
 --==================================================
 CREATE TRIGGER tg_times
@@ -18,7 +17,7 @@ AFTER INSERT,UPDATE,DELETE
 AS
 BEGIN
 	ROLLBACK TRANSACTION
-	RAISERROR('Os times não podem ser alterados',16,1)
+	RAISERROR('Os times nï¿½o podem ser alterados',16,1)
 END
 GO
 --==================================================
@@ -33,7 +32,7 @@ BEGIN
 	IF(@jogos != 0)
 	BEGIN
 		ROLLBACK TRANSACTION
-		RAISERROR('OS grupos não podem ser alterados quando já existem jogos agendados',16,1)
+		RAISERROR('OS grupos nï¿½o podem ser alterados quando jï¿½ existem jogos agendados',16,1)
 	END
 END
 GO
@@ -49,14 +48,14 @@ BEGIN
 	IF EXISTS(SELECT codigoTimeA FROM deleted)
 	BEGIN
 		ROLLBACK TRANSACTION
-		RAISERROR('Jogos não podem ser inseridos ou deletados',16,1)
+		RAISERROR('Jogos nï¿½o podem ser inseridos ou deletados',16,1)
 	END
 	ELSE
 	BEGIN
 		IF(NOT(@jogos < 97))
 		BEGIN
 			ROLLBACK TRANSACTION
-			RAISERROR('Jogos não podem ser inseridos ou deletados',16,1)
+			RAISERROR('Jogos nï¿½o podem ser inseridos ou deletados',16,1)
 		END
 	END
 END

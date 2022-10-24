@@ -1,3 +1,5 @@
+use AVL1LabBD
+GO
 CREATE PROCEDURE sp_inseretime
 AS
 DELETE FROM Grupos
@@ -86,9 +88,3 @@ END CATCH
 END
 SET @tam1 = (SELECT COUNT(*) FROM Grupos)
 END
-
-EXEC sp_inseretime
-GO
-SELECT * 
-FROM Grupos
-ORDER BY Grupo
