@@ -8,9 +8,9 @@ public class Conexao {
 	private String server = "localhost";
 	private String login = "root";
 	private String senha = "12345678";
-	private String bd = "AVL1LabBD";
+	private String bd = "AVL1LabBD";	
 	
-	public Connection getConexao() {		
+	public Connection getConexao() {
 		return getConexaoSqlServer();		
 	}
 	
