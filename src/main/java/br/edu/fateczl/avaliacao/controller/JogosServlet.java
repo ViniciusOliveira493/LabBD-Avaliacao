@@ -73,7 +73,7 @@ public class JogosServlet extends AbstractServlet{
 		Connection cn = conn.getConexao();
 		try {
 			cn = conn.getConexao();
-			JogosDAO d = new JogosDAO(cn);
+			JogosDAO d = new JogosDAO();
 			return d.create();
 		} catch (SQLException e) {
 			erro = e.getMessage();
@@ -91,30 +91,24 @@ public class JogosServlet extends AbstractServlet{
 			return jogos;
 		}
 		
-		Conexao conn = new Conexao();
-		Connection cn = conn.getConexao();
 		try {
-			JogosDAO d = new JogosDAO(cn);
+			JogosDAO d = new JogosDAO();
 			jogos = d.list(dt);
 		} catch (Exception e) {
 			erro = e.getMessage();
-		} finally {
-			conn.close(cn);
-		}		
+		} 
+		
 		return jogos;
 	}
 	
 	private List<Jogo> listarAllJogos() {
 		List<Jogo> jogos = null;
-		Conexao conn = new Conexao();
-		Connection cn = conn.getConexao();	
+		
 		try {
-			JogosDAO d = new JogosDAO(cn);
+			JogosDAO d = new JogosDAO();
 			jogos = d.listAll();
 		} catch (Exception e) {
 			erro = e.getMessage();
-		} finally {
-			conn.close(cn);
 		}		
 		return jogos;
 	}

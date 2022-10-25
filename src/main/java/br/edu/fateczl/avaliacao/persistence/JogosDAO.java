@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import br.edu.fateczl.avaliacao.model.Jogo;
@@ -16,32 +17,38 @@ import br.edu.fateczl.avaliacao.model.Time;
 
 @Repository
 public class JogosDAO {
+	Conexao conn = new Conexao();	
+	
 	Connection cn = null;
 	List<Time> times = null;
 	
-	public JogosDAO(Connection cn) throws SQLException {
-		this.cn = cn;
-		TimeDAO td = new TimeDAO(cn);
+	public JogosDAO() throws SQLException {		
+		TimeDAO td = new TimeDAO();
 		this.times = td.listAll();
 	}
 	
 	public int create() throws SQLException {
+		this.cn = conn.getConexao();
 		String query = "{CALL sp_criarRodadas}";
 		CallableStatement cs = cn.prepareCall(query);
 		cs.execute();
 		cs.close();		
+		this.cn.close();
 		return 1;
 	}
 
 	public int delete() throws SQLException {
+		this.cn = conn.getConexao();
 		String query = "DELETE FROM Jogos";
 		PreparedStatement pstm = cn.prepareStatement(query);
 		pstm.execute();
-		pstm.close();		
+		pstm.close();	
+		this.cn.close();
 		return 1;
 	}
 
 	public List<Jogo> listAll() throws SQLException {
+		this.cn = conn.getConexao();
 		List<Jogo> jogos = new ArrayList<Jogo>();
 		String query = "SELECT codigoTimeA AS cta, codigoTimeB as ctb"
 							  + ", golsTimeA as gta, golsTimeB as gtb"
@@ -59,10 +66,14 @@ public class JogosDAO {
 			j.setDatajogo(rs.getString("datajogo"));
 			jogos.add(j);
 		}
+		rs.close();
+		pstm.close();
+		this.cn.close();
 		return jogos;
 	}
 	
 	public List<Jogo> list(LocalDate dt) throws SQLException {
+		this.cn = conn.getConexao();
 		List<Jogo> jogos = new ArrayList<Jogo>();
 		String query = "SELECT codigoTimeA AS cta, codigoTimeB as ctb"
 				  + ", golsTimeA as gta, golsTimeB as gtb"
@@ -80,6 +91,9 @@ public class JogosDAO {
 			j.setDatajogo(rs.getString("datajogo"));
 			jogos.add(j);
 		}
+		rs.close();
+		pstm.close();
+		this.cn.close();
 		return jogos;
 	}
 	

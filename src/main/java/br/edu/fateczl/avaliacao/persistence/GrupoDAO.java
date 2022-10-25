@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import br.edu.fateczl.avaliacao.model.Grupo;
@@ -15,13 +16,16 @@ import br.edu.fateczl.avaliacao.model.Time;
 
 @Repository
 public class GrupoDAO extends DAO<Grupo> {
+	@Autowired	
+	Conexao conn = new Conexao();	
 	
-	public GrupoDAO(Connection cn) {
-		this.cn = cn;
+	public GrupoDAO() {
+		
 	}
 	
 	@Override
 	public List<Grupo> listAll2() throws SQLException {
+		this.cn = conn.getConexao();
 		List<Grupo> grupos = new ArrayList<Grupo>();
 		StringBuffer query = new StringBuffer();
 		query.append("SELECT gr.Grupo AS Grupo,tm.CodigoTime AS codigoTime,tm.NomeTime AS nomeTime,tm.Cidade AS cidade"
@@ -47,6 +51,7 @@ public class GrupoDAO extends DAO<Grupo> {
 		}	
 		ps.close();
 		rs.close();
+		this.cn.close();
 		return grupos;
 	}
 
@@ -71,8 +76,9 @@ public class GrupoDAO extends DAO<Grupo> {
 
 	@Override
 	public List<Grupo> listAll() throws SQLException {
+		this.cn = conn.getConexao();
 		List<Grupo> grupos = new ArrayList<Grupo>();
-		JogosDAO d = new JogosDAO(cn);
+		JogosDAO d = new JogosDAO();
 		d.delete();
 		String sql = "{CALL sp_inseretime } ";
 		CallableStatement cs = cn.prepareCall(sql);
@@ -102,6 +108,7 @@ public class GrupoDAO extends DAO<Grupo> {
 		}	
 		ps.close();
 		rs.close();
+		this.cn.close();
 		return grupos;
 	}
 

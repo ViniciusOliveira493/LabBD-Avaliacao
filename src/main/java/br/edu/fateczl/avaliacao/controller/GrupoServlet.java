@@ -20,10 +20,8 @@ import br.edu.fateczl.avaliacao.persistence.GrupoDAO;
 import jakarta.servlet.ServletException;
 
 @Controller
-public class GrupoServlet extends AbstractServlet{	
-	@Autowired
+public class GrupoServlet extends AbstractServlet{
 	
-	Conexao conn;
 	List<Grupo> grupos = new ArrayList<>();
 	String erro = "";
     public GrupoServlet(){
@@ -54,26 +52,23 @@ public class GrupoServlet extends AbstractServlet{
 	}
     
 	public List<Grupo> createGrupos() throws SQLException {
-		Connection cn = null;
 		try {
-			cn = conn.getConexao();
-			GrupoDAO d = new GrupoDAO(cn);
+			GrupoDAO d = new GrupoDAO();
 			return d.listAll();
-		} finally {
-			conn.close(cn);
+		}catch (Exception e) {
+			erro = e.getMessage();
 		}
+		return null;
 	}
     
 	public List<Grupo> getGrupos() throws SQLException {
-		Conexao conn = new Conexao();
-		Connection cn = null;
 		try {
-			cn = conn.getConexao();
-			GrupoDAO d = new GrupoDAO(cn);
+			GrupoDAO d = new GrupoDAO();
 			return d.listAll2();
-		} finally {
-			conn.close(cn);
+		} catch (SQLException e) {
+			erro = e.getMessage();
 		}
+		return null;
 	}
 	
 	@Override

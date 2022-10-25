@@ -1,7 +1,6 @@
 package br.edu.fateczl.avaliacao.controller;
 
 import java.io.IOException;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +13,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import br.edu.fateczl.avaliacao.controller.abstractClasses.AbstractServlet;
 import br.edu.fateczl.avaliacao.model.Time;
-import br.edu.fateczl.avaliacao.persistence.Conexao;
 import br.edu.fateczl.avaliacao.persistence.TimeDAO;
 import jakarta.servlet.ServletException;
 
@@ -53,15 +51,13 @@ public class TimeServlet  extends AbstractServlet {
 	}
 	
 	public List<Time> getTimes() throws SQLException {
-		Conexao conn = new Conexao();
-		Connection cn = null;
 		try {
-			cn = conn.getConexao();
-			TimeDAO d = new TimeDAO(cn);
+			TimeDAO d = new TimeDAO();
 			return d.listAll();
-		} finally {
-			conn.close(cn);
+		} catch (Exception e) {
+			erro = e.getMessage();
 		}
+		return null;
 	}
 	
 	@Override
