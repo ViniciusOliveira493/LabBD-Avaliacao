@@ -7,54 +7,65 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+
+import br.edu.fateczl.avaliacao.controller.abstractClasses.AbstractServlet;
 import br.edu.fateczl.avaliacao.model.Jogo;
 import br.edu.fateczl.avaliacao.persistence.Conexao;
 import br.edu.fateczl.avaliacao.persistence.JogosDAO;
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/jogos")
-public class JogosServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+@Controller
+public class JogosServlet extends AbstractServlet{
 	private String erro = "";
 	private String msg = "";
 	private String data = "";
 	private List<Jogo> jogos = new ArrayList<>();
-	RequestDispatcher rd;
 	
     public JogosServlet() {
         super();
     }
-	
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    
+    @Override
+    @RequestMapping(name = "jogos", value = "/jogos", method = RequestMethod.GET)
+    public ModelAndView doGet(ModelMap model) throws ServletException, IOException {
+    	limparAtributos();
     	jogos = listarAllJogos();
-    	iniciarRD(request,response);
+    	return retorno(model);
 	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String btn = request.getParameter("btn");	
+    
+    @Override
+    @RequestMapping(name = "jogos", value = "/jogos", method = RequestMethod.POST)
+	public ModelAndView doPost(ModelMap model) throws ServletException, IOException {
+    	limparAtributos();
+    	jogos = listarAllJogos();
+    	System.out.println("post capturado");
+    	return retorno(model);
+    	/*
+		String btn = model.getAttribute("btn");	
 		System.out.println(request.toString());
 		if(btn.equals("Criar Jogos")) {
 			if(createJogos()==1) {
 				msg = "Jogos criados com sucesso";
 				jogos = listarAllJogos();
-				iniciarRD(request,response);
+				return retorno(model);
 			}else {
 				msg = "Algo deu errado";
 				jogos = listarAllJogos();
-				iniciarRD(request,response);
+				return retorno(model);
 			}
 		}else {
 			String data = request.getParameter("txtData");
 			if(!data.equals("") && data != null) {
 				jogos = listarJogos(LocalDate.parse(data));
 			}			
-			iniciarRD(request,response);
+			return retorno(model);
 		}
+		*/
 	}
 	
 	private int createJogos() {
@@ -108,12 +119,20 @@ public class JogosServlet extends HttpServlet {
 		return jogos;
 	}
 	
-	private void iniciarRD(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		rd = request.getRequestDispatcher("jogos.jsp");
-		request.setAttribute("erro", erro);
-		request.setAttribute("res", msg);
-		request.setAttribute("jogos", jogos);
-		request.setAttribute("data", data);
-		rd.forward(request, response);
+	@Override
+	protected void limparAtributos() {
+		erro = "";
+		msg = "";
+		data = "";
+		jogos = new ArrayList<>();
+	}
+	
+	@Override
+	protected ModelAndView retorno(ModelMap model) throws ServletException, IOException {
+		model.addAttribute("erro", erro);
+		model.addAttribute("res", msg);
+		model.addAttribute("jogos", jogos);
+		model.addAttribute("data", data);
+		return new ModelAndView("jogos");
 	}
 }

@@ -3,6 +3,9 @@ package br.edu.fateczl.avaliacao.persistence;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
+@Repository
 public interface IDao<T> {	
 	public int create() throws SQLException;
 	public T read(T obj)  throws SQLException;

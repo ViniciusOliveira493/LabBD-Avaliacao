@@ -1,7 +1,8 @@
 package br.edu.fateczl.avaliacao.model;
 
-import java.time.LocalDate;
+import org.springframework.stereotype.Service;
 
+@Service
 public class Jogo {
 	private Time timeA;
 	private Time timeB;

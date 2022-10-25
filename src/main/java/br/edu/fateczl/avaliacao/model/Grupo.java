@@ -1,5 +1,8 @@
 package br.edu.fateczl.avaliacao.model;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class Grupo {
 	private String grupo;
 	private Time time;

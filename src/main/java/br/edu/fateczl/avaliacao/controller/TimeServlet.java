@@ -6,55 +6,50 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+
+import br.edu.fateczl.avaliacao.controller.abstractClasses.AbstractServlet;
 import br.edu.fateczl.avaliacao.model.Time;
 import br.edu.fateczl.avaliacao.persistence.Conexao;
 import br.edu.fateczl.avaliacao.persistence.TimeDAO;
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 
 
-@WebServlet("/times")
-public class TimeServlet  extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+@Controller
+public class TimeServlet  extends AbstractServlet {
+	List<Time> times = new ArrayList<>();
+	String erro = "";
 	
     public TimeServlet() {
         super();
     }
 	
-	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		List<Time> times = new ArrayList<>();
-		String erro = "";
+    @Override
+    @RequestMapping(name = "times", value = "/times", method = RequestMethod.GET)
+    public ModelAndView doGet(ModelMap model) throws ServletException, IOException {		
 		try {
 			times = getTimes();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			erro = e.getMessage();
-		} finally {
-			RequestDispatcher rd = req.getRequestDispatcher("index.jsp");
-			req.setAttribute("times", times);
-			req.setAttribute("erro", erro);
-			rd.forward(req, resp);
 		}
+		return retorno(model);
 	}
 	
-	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		List<Time> times = new ArrayList<>();
-		String erro = "";
+    @Override
+    @RequestMapping(name = "times", value = "/times", method = RequestMethod.POST)
+    public ModelAndView doPost(ModelMap model) throws ServletException, IOException {
 		try {
 			times = getTimes();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			erro = e.getMessage();
-		} finally {
-			RequestDispatcher rd = req.getRequestDispatcher("index.jsp");
-			req.setAttribute("times", times);
-			req.setAttribute("erro", erro);
-			rd.forward(req, resp);
-		}
+		} 
+		return retorno(model);
 	}
 	
 	public List<Time> getTimes() throws SQLException {
@@ -67,6 +62,19 @@ public class TimeServlet  extends HttpServlet {
 		} finally {
 			conn.close(cn);
 		}
+	}
+	
+	@Override
+	protected void limparAtributos() {
+		times = new ArrayList<>();
+		erro = "";
+	}
+	
+	@Override
+	protected ModelAndView retorno(ModelMap model) throws ServletException, IOException {
+		model.addAttribute("times", times);
+		model.addAttribute("erro", erro);
+		return new ModelAndView("index");
 	}
 	
 }

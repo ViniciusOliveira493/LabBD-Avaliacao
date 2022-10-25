@@ -7,9 +7,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import br.edu.fateczl.avaliacao.model.Time;
 
-
+@Repository
 public class TimeDAO{
 	Connection cn = null;
 	public TimeDAO(Connection cn) {

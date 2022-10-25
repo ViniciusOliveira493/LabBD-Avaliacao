@@ -8,10 +8,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import br.edu.fateczl.avaliacao.model.Grupo;
 import br.edu.fateczl.avaliacao.model.Time;
 
-
+@Repository
 public class GrupoDAO extends DAO<Grupo> {
 	
 	public GrupoDAO(Connection cn) {

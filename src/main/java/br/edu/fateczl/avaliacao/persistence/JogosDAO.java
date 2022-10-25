@@ -7,13 +7,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
+
+import org.springframework.stereotype.Repository;
 
 import br.edu.fateczl.avaliacao.model.Jogo;
 import br.edu.fateczl.avaliacao.model.Time;
 
-
+@Repository
 public class JogosDAO {
 	Connection cn = null;
 	List<Time> times = null;
