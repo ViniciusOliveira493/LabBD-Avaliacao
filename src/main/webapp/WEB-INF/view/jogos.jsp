@@ -6,7 +6,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Jogos</title>
-		<link href="./css/estilo.css" rel="stylesheet" type="text/css">
+		<link rel="stylesheet" type="text/css" href='<c:url value="./resources/css/estilo.css" />'>
 	</head>
 	<body>
 		<jsp:include page="menu.jsp" />
@@ -87,6 +87,6 @@
 				</div>
 			</div>
 		</main>
-		<script type="text/javascript" src="./js/script.js"></script>
+		<script type="text/javascript" src='<c:url value="./resources/js/script.js" />'></script>
 	</body>
 </html>
