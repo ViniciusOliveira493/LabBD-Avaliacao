@@ -11,14 +11,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import br.edu.fateczl.avaliacao.controller.abstractClasses.AbstractServlet;
 import br.edu.fateczl.avaliacao.model.Time;
 import br.edu.fateczl.avaliacao.persistence.TimeDAO;
 import jakarta.servlet.ServletException;
 
 
 @Controller
-public class TimeServlet  extends AbstractServlet {
+public class TimeServlet {
 	List<Time> times = new ArrayList<>();
 	String erro = "";
 	
@@ -26,7 +25,6 @@ public class TimeServlet  extends AbstractServlet {
         super();
     }
 	
-    @Override
     @RequestMapping(name = "times", value = "/times", method = RequestMethod.GET)
     public ModelAndView doGet(ModelMap model) throws ServletException, IOException {		
 		try {
@@ -38,7 +36,6 @@ public class TimeServlet  extends AbstractServlet {
 		return retorno(model);
 	}
 	
-    @Override
     @RequestMapping(name = "times", value = "/times", method = RequestMethod.POST)
     public ModelAndView doPost(ModelMap model) throws ServletException, IOException {
 		try {
@@ -60,13 +57,11 @@ public class TimeServlet  extends AbstractServlet {
 		return null;
 	}
 	
-	@Override
 	protected void limparAtributos() {
 		times = new ArrayList<>();
 		erro = "";
 	}
-	
-	@Override
+
 	protected ModelAndView retorno(ModelMap model) throws ServletException, IOException {
 		model.addAttribute("times", times);
 		model.addAttribute("erro", erro);

@@ -41,5 +41,4 @@ public class Jogo {
 	public void setDatajogo(String datajogo) {
 		this.datajogo = datajogo;
 	}
-	
 }

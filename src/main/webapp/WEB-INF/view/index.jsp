@@ -6,7 +6,7 @@
 	<head>
 		<meta charset="ISO-8859-1">
 		<title>Times</title>
-		<link rel="stylesheet" type="text/css" href='<c:url value="./resources/css/estilo.css" />'>
+		<link rel="stylesheet" type="text/css" href='<c:url value="./resources/css/styles.css" />'>
 	</head>
 	<body>
 		<jsp:include page="./menu.jsp" />

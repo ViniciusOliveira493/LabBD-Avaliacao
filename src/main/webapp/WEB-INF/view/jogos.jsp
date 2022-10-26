@@ -6,7 +6,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Jogos</title>
-		<link rel="stylesheet" type="text/css" href='<c:url value="./resources/css/estilo.css" />'>
+		<link rel="stylesheet" type="text/css" href='<c:url value="./resources/css/styles.css" />'>
 	</head>
 	<body>
 		<jsp:include page="menu.jsp" />
@@ -27,6 +27,9 @@
 				</form>
 				<div class="center">
 					<c:if test="${not empty jogos}">
+						<div>
+							<input type="button" id="btnVisualizarJogo" name="btn" value="Ver jogo"/>
+						</div>
 						<div class="divTb">
 							<table class = "tbJogos" id="tbJogos" border = "1">
 								<thead>
@@ -76,9 +79,6 @@
 									</c:forEach>
 								</tbody>
 							</table>
-						</div>
-						<div>
-							<input type="button" id="btnVisualizarJogo" value="Ver jogo"/>
 						</div>
 					</c:if>
 					<c:if test="${empty jogos}">

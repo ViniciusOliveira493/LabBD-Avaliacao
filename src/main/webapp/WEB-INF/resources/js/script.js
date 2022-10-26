@@ -24,8 +24,8 @@ btnVer.addEventListener("click",function(){
 		jogo.timeB = selected[2].innerHTML.trim();
 		jogo.data = selected[5].innerHTML.trim();
 		
-		fetch("avaliacao1/jogos",{
-			method:"POST",
+		fetch("jogos",{
+			method:"PUT",
 			headers:{"Content-Type": "application/json"},
 			body : JSON.stringify(jogo),
 		});
