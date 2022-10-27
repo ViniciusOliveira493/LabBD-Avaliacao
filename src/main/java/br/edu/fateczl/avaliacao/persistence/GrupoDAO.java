@@ -16,7 +16,6 @@ import br.edu.fateczl.avaliacao.model.Time;
 
 @Repository
 public class GrupoDAO extends DAO<Grupo> {
-	@Autowired	
 	Conexao conn = new Conexao();	
 	
 	public GrupoDAO() {

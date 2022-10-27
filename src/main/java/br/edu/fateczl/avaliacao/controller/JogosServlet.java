@@ -76,7 +76,7 @@ public class JogosServlet{
     	jogos = listarAllJogos();	
 		System.out.println("btn "+jogo.toString());	
 
-		return retorno(model,"jogos");
+		return new ModelAndView("index");
 	}
     
 	private int createJogos() {
