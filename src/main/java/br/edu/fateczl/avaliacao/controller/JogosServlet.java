@@ -10,6 +10,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,7 +29,6 @@ public class JogosServlet{
 	private String msg = "";
 	private String data = "";
 	private List<Jogo> jogos = new ArrayList<>();
-	private Jogo jogo;
 	
     public JogosServlet() {
         super();
@@ -40,6 +40,12 @@ public class JogosServlet{
     	limparAtributos();
     	jogos = listarAllJogos();
     	return retorno(model,"jogos");
+	}
+    
+    @RequestMapping(name = "jogos", value = "/updateJogos", method = RequestMethod.GET)
+    public ModelAndView doUpGet(ModelMap model) throws ServletException, IOException {
+    	System.out.println("vai para atualizar");
+    	return retorno(model,"atualizarJogo");
 	}
     
     //
@@ -70,13 +76,13 @@ public class JogosServlet{
 		return retorno(model,"jogos");
 	}
     
-    @RequestMapping(name = "jogos", value = "jogos", method = RequestMethod.PUT)
+    @RequestMapping(name = "jogos", value = "/jogos", method = RequestMethod.PUT)
 	public ModelAndView doPostJogo(@RequestBody JogoParam jogo,ModelMap model) throws ServletException, IOException {
     	limparAtributos();
     	jogos = listarAllJogos();	
-		System.out.println("btn "+jogo.toString());	
-
-		return new ModelAndView("index");
+		update(jogo.toJogo());
+		System.out.println("retorno para jogos");
+		return new ModelAndView("jogos");
 	}
     
 	private int createJogos() {
@@ -122,6 +128,15 @@ public class JogosServlet{
 			erro = e.getMessage();
 		}		
 		return jogos;
+	}
+	
+	public void update(Jogo jogo) {		
+		try {
+			JogosDAO d = new JogosDAO();
+			d.update(jogo);
+		} catch (SQLException e) {
+			erro = e.getMessage();
+		}
 	}
 	
 	protected void limparAtributos() {

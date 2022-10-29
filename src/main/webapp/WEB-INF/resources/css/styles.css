@@ -158,7 +158,9 @@ h3 {
 	width: 350px;
 	font-size: 20px;
 }
-
+.divInput{
+	margin-bottom: 1em;
+}
 .table_round {
 	border: 1px solid black;
 	border-radius: 10px;

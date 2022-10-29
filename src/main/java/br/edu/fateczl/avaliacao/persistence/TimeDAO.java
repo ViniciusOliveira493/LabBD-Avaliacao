@@ -40,6 +40,26 @@ public class TimeDAO{
 		return obj;
 	}
 	
+	public Time read(String nome) throws SQLException {
+		this.cn = conn.getConexao();
+		Time obj = new Time();
+		String query = "SELECT codigoTime, nomeTime, cidade, estadio "
+						+ "FROM Times WHERE nomeTime = ?";
+		PreparedStatement pstm = cn.prepareStatement(query);
+		pstm.setString(1, nome);
+		ResultSet rs = pstm.executeQuery();
+		while(rs.next()) {
+			obj.setCodigoTime(rs.getInt("codigoTime"));
+			obj.setNomeTime(rs.getString("nomeTime"));
+			obj.setCidade(rs.getString("cidade"));
+			obj.setEstadio(rs.getString("estadio"));
+		}
+		rs.close();
+		pstm.close();
+		this.cn.close();
+		return obj;
+	}
+	
 	public List<Time> listAll() throws SQLException {
 		this.cn = conn.getConexao();
 		List<Time> lista = new ArrayList<>();

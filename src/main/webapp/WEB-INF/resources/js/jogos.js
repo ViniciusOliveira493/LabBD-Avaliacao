@@ -22,12 +22,20 @@ btnVer.addEventListener("click",function(){
 		var jogo = new Object();
 		jogo.timeA = selected[0].innerHTML.trim();
 		jogo.timeB = selected[2].innerHTML.trim();
+		jogo.GolsA = selected[3].innerHTML.trim();
+		jogo.GolsB = selected[4].innerHTML.trim();
 		jogo.data = selected[5].innerHTML.trim();
 		
-		fetch("jogos",{
-			method:"PUT",
+		setCookie("jogo",JSON.stringify(jogo));
+		
+		fetch("updateJogos",{
+			method:"GET",
 			headers:{"Content-Type": "application/json"},
-			body : JSON.stringify(jogo),
 		});
+		
 	}
 });
+
+function setCookie(name,value,maxAgeSeconds){
+	document.cookie = name+ "=" + value + "; max-age="+maxAgeSeconds;
+}

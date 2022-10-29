@@ -67,5 +67,4 @@ public class TimeServlet {
 		model.addAttribute("erro", erro);
 		return new ModelAndView("index");
 	}
-	
 }

@@ -47,6 +47,25 @@ public class JogosDAO {
 		return 1;
 	}
 
+	public int update(Jogo j) throws SQLException {
+		this.cn = conn.getConexao();
+		String query = "UPDATE Jogos"
+				+ " SET golsTimeA = ?"
+				+ " ,golsTimeB = ?"
+				+ " WHERE codigoTimeA = ?"
+				+ " AND codigoTimeB = ?"
+				+ " AND datajogo = ?";
+		PreparedStatement pstm = cn.prepareStatement(query);
+		pstm.setInt(1, j.getGolsTimeA());
+		pstm.setInt(2, j.getGolsTimeB());
+		pstm.setInt(3, j.getTimeA().getCodigoTime());
+		pstm.setInt(4, j.getTimeB().getCodigoTime());
+		pstm.setString(5, j.getDatajogo());
+		pstm.execute();
+		
+		return 1;
+	}
+	
 	public List<Jogo> listAll() throws SQLException {
 		this.cn = conn.getConexao();
 		List<Jogo> jogos = new ArrayList<Jogo>();

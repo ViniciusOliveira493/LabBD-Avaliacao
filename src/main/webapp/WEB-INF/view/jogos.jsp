@@ -87,6 +87,6 @@
 				</div>
 			</div>
 		</main>
-		<script type="text/javascript" src='<c:url value="./resources/js/script.js" />'></script>
+		<script type="text/javascript" src='<c:url value="./resources/js/jogos.js" />'></script>
 	</body>
 </html>

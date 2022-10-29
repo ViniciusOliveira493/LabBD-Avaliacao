@@ -41,4 +41,9 @@ public class Jogo {
 	public void setDatajogo(String datajogo) {
 		this.datajogo = datajogo;
 	}
+	
+	@Override
+	public String toString() {
+		return "Jogo = Time A = " + timeA + " "+ golsTimeA + " VS Time B = " + timeB+ " "+ golsTimeB + " Dia: "+ datajogo;
+	}
 }
