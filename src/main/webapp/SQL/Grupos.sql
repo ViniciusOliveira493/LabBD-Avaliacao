@@ -1,3 +1,5 @@
+use AVL1LabBD
+GO
 CREATE PROCEDURE sp_inseretime
 AS
 DELETE FROM Grupos
@@ -28,57 +30,36 @@ INSERT INTO Grupos VALUES (@GrupoB, @time2)
 INSERT INTO Grupos VALUES (@GrupoC, @Time3)
 INSERT INTO Grupos VALUES (@GrupoD, @Time4)
 --Gerando outros 12 Times
-DECLARE @tam INT, @tam1 INT
+DECLARE @tam INT, @tam1 INT, @grupo CHAR, @num INT
+
 SET @tam1 = (SELECT COUNT(*) FROM Grupos)
 WHILE @tam1 < 16
 BEGIN
---GRUPO A
-SET @tam = (SELECT COUNT(Grupo) FROM Grupos WHERE Grupo = @GrupoA) 
+SET @num = CAST (((RAND() * 4) + 1) AS INT)
+
+	IF(@num = 1)
+	BEGIN
+		SET @grupo = 'A'
+	END
+	IF(@num = 2)
+	BEGIN
+		SET @grupo = 'B'
+	END
+	IF(@num = 3)
+	BEGIN
+		SET @grupo = 'C'
+	END
+	IF(@num = 4)
+	BEGIN
+		SET @grupo = 'D'
+	END
+SET @tam = (SELECT COUNT(Grupo) FROM Grupos WHERE Grupo = @grupo) 
 WHILE (@tam < 4)
 BEGIN
 BEGIN TRY
 SET @time1 = CAST (((RAND() * 16) + 5) AS INT)
-INSERT INTO Grupos VALUES (@GrupoA, @time1)
-SET @tam = (SELECT COUNT(Grupo) FROM Grupos WHERE Grupo = @GrupoA) 
-END TRY
-BEGIN CATCH
-SET @tam = @tam + 0
-END CATCH
-END
---GRUPO B
-SET @tam = (SELECT COUNT(Grupo) FROM Grupos WHERE Grupo = @GrupoB)
-WHILE (@tam < 4)
-BEGIN
-BEGIN TRY
-SET @time1 = CAST (((RAND() * 16) + 5) AS INT)
-INSERT INTO Grupos VALUES (@GrupoB, @time1)
-SET @tam = (SELECT COUNT(Grupo) FROM Grupos WHERE Grupo = @GrupoB)
-END TRY
-BEGIN CATCH
-SET @tam = @tam + 0
-END CATCH
-END
---GRUPO C
-SET @tam = (SELECT COUNT(Grupo) FROM Grupos WHERE Grupo = @GrupoC) 
-WHILE (@tam < 4)
-BEGIN
-BEGIN TRY
-SET @time1 = CAST (((RAND() * 16) + 5) AS INT)
-INSERT INTO Grupos VALUES (@GrupoC, @time1)
-SET @tam = (SELECT COUNT(Grupo) FROM Grupos WHERE Grupo = @GrupoC)
-END TRY
-BEGIN CATCH
-SET @tam = @tam + 0
-END CATCH
-END
---Grupo D
-SET @tam = (SELECT COUNT(Grupo) FROM Grupos WHERE Grupo = @GrupoD) 
-WHILE (@tam < 4)
-BEGIN
-BEGIN TRY
-SET @time1 = CAST (((RAND() * 16) + 5) AS INT)
-INSERT INTO Grupos VALUES (@GrupoD, @time1)
-SET @tam = (SELECT COUNT(Grupo) FROM Grupos WHERE Grupo = @GrupoD)
+INSERT INTO Grupos VALUES (@grupo, @time1)
+SET @tam = (SELECT COUNT(Grupo) FROM Grupos WHERE Grupo = @grupo) 
 END TRY
 BEGIN CATCH
 SET @tam = @tam + 0
@@ -87,8 +68,3 @@ END
 SET @tam1 = (SELECT COUNT(*) FROM Grupos)
 END
 
-EXEC sp_inseretime
-GO
-SELECT * 
-FROM Grupos
-ORDER BY Grupo
