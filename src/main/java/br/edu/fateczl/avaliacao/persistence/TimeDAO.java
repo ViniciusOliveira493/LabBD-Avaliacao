@@ -86,7 +86,7 @@ public class TimeDAO{
 		this.cn = conn.getConexao();
 		List<Classificacao> lista = new ArrayList<>();
 		String query = "SELECT * from fn_classificacaoGeral()"
-				+ " ORDER BY pontos DESC";
+				+ " ORDER BY pontos DESC, vitorias DESC,golsMarcados DESC,saldoGols DESC";
 		PreparedStatement pstm = cn.prepareStatement(query);
 		ResultSet rs = pstm.executeQuery();
 		while(rs.next()) {
