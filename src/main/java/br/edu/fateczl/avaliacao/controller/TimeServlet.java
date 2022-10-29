@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import br.edu.fateczl.avaliacao.model.Classificacao;
 import br.edu.fateczl.avaliacao.model.Time;
 import br.edu.fateczl.avaliacao.persistence.TimeDAO;
 import jakarta.servlet.ServletException;
@@ -20,6 +21,7 @@ import jakarta.servlet.ServletException;
 public class TimeServlet {
 	List<Time> times = new ArrayList<>();
 	String erro = "";
+	List<Classificacao> listaClassificacao = new ArrayList<>();
 	
     public TimeServlet() {
         super();
@@ -33,7 +35,7 @@ public class TimeServlet {
 			e.printStackTrace();
 			erro = e.getMessage();
 		}
-		return retorno(model);
+		return retorno(model,"index");
 	}
 	
     @RequestMapping(name = "times", value = "/times", method = RequestMethod.POST)
@@ -44,7 +46,7 @@ public class TimeServlet {
 			e.printStackTrace();
 			erro = e.getMessage();
 		} 
-		return retorno(model);
+		return retorno(model,"index");
 	}
 	
 	public List<Time> getTimes() throws SQLException {
@@ -62,9 +64,32 @@ public class TimeServlet {
 		erro = "";
 	}
 
-	protected ModelAndView retorno(ModelMap model) throws ServletException, IOException {
+	@RequestMapping(name = "times", value = "/classificacao", method = RequestMethod.GET)
+    public ModelAndView doGetClass(ModelMap model) throws ServletException, IOException {		
+		try {
+			times = getTimes();
+			listaClassificacao = obterClassificacao();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			erro = e.getMessage();
+		}
+		return retorno(model,"classificacao");
+	}
+	 
+	private List<Classificacao> obterClassificacao() {
+		try {
+			TimeDAO d = new TimeDAO();
+			return d.classificacao();
+		} catch (SQLException e) {
+			erro = e.getMessage();
+		}
+		return null;
+	}
+
+	protected ModelAndView retorno(ModelMap model, String pagina) throws ServletException, IOException {
 		model.addAttribute("times", times);
 		model.addAttribute("erro", erro);
-		return new ModelAndView("index");
+		model.addAttribute("listaClassificacao", listaClassificacao);
+		return new ModelAndView(pagina);
 	}
 }

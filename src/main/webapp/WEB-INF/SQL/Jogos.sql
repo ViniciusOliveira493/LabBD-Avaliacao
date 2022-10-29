@@ -325,7 +325,7 @@ BEGIN
     RETURN
 END
 GO
---==============
+--================================= FUNCTION OBTER DADOS DO TIME ===========
 CREATE FUNCTION fn_obterDadosDoTime(@cod int)
 RETURNS @tab Table(
     nomeTime VARCHAR(20)
@@ -341,7 +341,7 @@ BEGIN
 INSERT INTO @tab
 SELECT 
      t.nomeTime
-     , COUNT(j.datajogo) AS disputados
+     , COUNT(j.golsTimeA) AS disputados
      , SUM(CASE WHEN (j.codigoTimeA = @cod) 
             THEN
             CASE WHEN(j.golsTimeA > j.golsTimeB)

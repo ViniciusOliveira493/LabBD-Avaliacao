@@ -14,6 +14,7 @@
 		  <li><a href="${pageContext.request.contextPath}/times">Home</a></li>
 		 <li><a href="${pageContext.request.contextPath}/grupos">Grupos</a></li>
 		  <li><a href="${pageContext.request.contextPath}/jogos">Jogos</a></li>
+		  <li><a href="${pageContext.request.contextPath}/classificacao">Classificação</a></li>
 		</ul>
 	</nav>
 </body>

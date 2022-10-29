@@ -10,6 +10,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import br.edu.fateczl.avaliacao.model.Classificacao;
 import br.edu.fateczl.avaliacao.model.Time;
 
 @Repository
@@ -81,4 +82,29 @@ public class TimeDAO{
 		return lista;
 	}
 	
+	public List<Classificacao> classificacao() throws SQLException {
+		this.cn = conn.getConexao();
+		List<Classificacao> lista = new ArrayList<>();
+		String query = "SELECT * from fn_classificacaoGeral()"
+				+ " ORDER BY pontos DESC";
+		PreparedStatement pstm = cn.prepareStatement(query);
+		ResultSet rs = pstm.executeQuery();
+		while(rs.next()) {
+			Classificacao obj = new Classificacao();
+			obj.setNomeTime(rs.getString("nomeTime"));
+			obj.setNumeroJogosDisputados(rs.getInt("numJogosDisputados"));
+			obj.setVitorias(rs.getInt("vitorias"));
+			obj.setEmpates(rs.getInt("empates"));
+			obj.setDerrotas(rs.getInt("derrotas"));
+			obj.setGolsMarcados(rs.getInt("golsMarcados"));
+			obj.setGolsSofridos(rs.getInt("golsSofridos"));
+			obj.setSaldoGols(rs.getInt("saldoGols"));
+			obj.setPontos(rs.getInt("pontos"));
+			lista.add(obj);
+		}
+		rs.close();
+		pstm.close();
+		this.cn.close();
+		return lista;
+	}
 }
