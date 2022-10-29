@@ -15,6 +15,7 @@
 		 <li><a href="${pageContext.request.contextPath}/grupos">Grupos</a></li>
 		  <li><a href="${pageContext.request.contextPath}/jogos">Jogos</a></li>
 		  <li><a href="${pageContext.request.contextPath}/classificacao">Classificação</a></li>
+		   <li><a href="${pageContext.request.contextPath}/quartas">Quartas</a></li>
 		</ul>
 	</nav>
 </body>
