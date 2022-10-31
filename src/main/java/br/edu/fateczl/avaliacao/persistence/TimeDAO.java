@@ -82,6 +82,24 @@ public class TimeDAO{
 		return lista;
 	}
 	
+	public List<Time> quartasDeFinal() throws SQLException {
+		this.cn = conn.getConexao();
+		List<Time> lista = new ArrayList<>();
+		String query = "SELECT nomeTime"
+				+ " FROM fn_quartasDeFinal()";
+		PreparedStatement pstm = cn.prepareStatement(query);
+		ResultSet rs = pstm.executeQuery();
+		while(rs.next()) {
+			Time obj = new Time();
+			obj.setNomeTime(rs.getString("nomeTime"));
+			lista.add(obj);
+		}
+		rs.close();
+		pstm.close();
+		this.cn.close();
+		return lista;
+	}
+	
 	public List<Classificacao> classificacao() throws SQLException {
 		this.cn = conn.getConexao();
 		List<Classificacao> lista = new ArrayList<>();

@@ -408,3 +408,25 @@ WHERE
 GROUP by t.codigoTime,t.nomeTime
 RETURN
 END
+GO
+--=============================== FUNCTION QUARTAS DE FINAL ======================
+CREATE FUNCTION fn_quartasDeFinal()
+RETURNS @tab TABLE(
+	nomeTime VARCHAR(20)
+)
+AS
+BEGIN
+    DECLARE @i INT
+    SET @i = 1
+
+    WHILE @i < 5
+    BEGIN
+        INSERT INTO @tab
+            Select TOP 2 
+                nomeTime
+            FROM fn_grupos(@i)
+            ORDER BY pontos DESC
+        SET @i = @i + 1
+    END
+    RETURN
+END

@@ -78,16 +78,20 @@ public class TimeServlet {
 	 
 	@RequestMapping(name = "times", value = "/quartas", method = RequestMethod.GET)
     public ModelAndView doGetQ(ModelMap model) throws ServletException, IOException {		
-		try {
-			times = getTimes();
-			listaClassificacao = obterClassificacao();
-		} catch (SQLException e) {
-			e.printStackTrace();
-			erro = e.getMessage();
-		}
+		times = obterQuartasDeFinal();	
 		return retorno(model,"quartas");
 	}
 	
+	private List<Time> obterQuartasDeFinal() {
+		try {
+			TimeDAO d = new TimeDAO();
+			return d.quartasDeFinal();
+		} catch (SQLException e) {
+			erro = e.getMessage();
+		}
+		return null;
+	}
+
 	private List<Classificacao> obterClassificacao() {
 		try {
 			TimeDAO d = new TimeDAO();
