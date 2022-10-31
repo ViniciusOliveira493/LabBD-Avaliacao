@@ -57,7 +57,7 @@ public class JogosServlet{
 	}
     
 	
-	private int createClassi() {
+	/*private int createClassi() {
 		Conexao conn = new Conexao();
 		Connection cn = conn.getConexao();
 		try {
@@ -70,7 +70,7 @@ public class JogosServlet{
 			conn.close(cn);
 		}
 		return -1;
-	}
+	}*/
 	
 	private List<classificacaogr> listarGrupos(int it) {
 		List<classificacaogr> classi = null;

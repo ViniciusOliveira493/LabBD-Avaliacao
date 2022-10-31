@@ -14,7 +14,7 @@
 			<div class="conteudo">
 				<h1 align="center">Classificação Grupos</h1>
 				<div class="center">
-					<c:if test="${not empty listaClassificacao}">
+					<c:if test="${not empty classificados}">
 						<div class="divTb">
 							<table class = "" id="tbClassificacao" border = "1">
 								<thead>
@@ -49,7 +49,106 @@
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach items="${listaClassificacao}" var="m">
+										<c:forEach begin ="0" end="0" items="${classificados}" var="m">
+											<tr>
+												<td class="coluna">
+													${m.nomeTime}
+												</td>
+												<td class="coluna">
+													${m.numeroJogosDisputados}
+												</td>
+												<td class="coluna">
+													${m.vitorias}
+												</td>
+												<td class="coluna">
+													${m.empates}
+												</td>
+												<td class="coluna">
+													${m.derrotas}
+												</td>
+												<td class="coluna">
+													${m.golsMarcados}
+												</td>
+												<td class="coluna">
+													${m.golsSofridos}
+												</td>
+												<td class="coluna">
+													${m.saldoGols}
+												</td>
+												<td class="coluna">
+													${m.pontos}
+												</td>
+											</tr>
+										</c:forEach>
+									</tbody>
+										<tbody>
+										<c:forEach begin ="1" end="1" items="${classificados}" var="m">
+											<tr>
+												<td class="coluna">
+													${m.nomeTime}
+												</td>
+												<td class="coluna">
+													${m.numeroJogosDisputados}
+												</td>
+												<td class="coluna">
+													${m.vitorias}
+												</td>
+												<td class="coluna">
+													${m.empates}
+												</td>
+												<td class="coluna">
+													${m.derrotas}
+												</td>
+												<td class="coluna">
+													${m.golsMarcados}
+												</td>
+												<td class="coluna">
+													${m.golsSofridos}
+												</td>
+												<td class="coluna">
+													${m.saldoGols}
+												</td>
+												<td class="coluna">
+													${m.pontos}
+												</td>
+											</tr>
+										</c:forEach>
+									</tbody>
+										<tbody>
+										<c:forEach begin ="2" end="3" items="${classificados}" var="m">
+											<tr>
+												<td class="coluna">
+													${m.nomeTime}
+												</td>
+												<td class="coluna">
+													${m.numeroJogosDisputados}
+												</td>
+												<td class="coluna">
+													${m.vitorias}
+												</td>
+												<td class="coluna">
+													${m.empates}
+												</td>
+												<td class="coluna">
+													${m.derrotas}
+												</td>
+												<td class="coluna">
+													${m.golsMarcados}
+												</td>
+												<td class="coluna">
+													${m.golsSofridos}
+												</td>
+												<td class="coluna">
+													${m.saldoGols}
+												</td>
+												<td class="coluna">
+													${m.pontos}
+												</td>
+											</tr>
+										</c:forEach>
+									</tbody>
+										<tbody>
+										<c:forEach begin ="0" end="0" items="${classificados}" var="m">
 											<tr>
 												<td class="coluna">
 													${m.nomeTime}
@@ -84,7 +183,7 @@
 							</table>
 						</div>
 					</c:if>
-					<c:if test="${empty listaClassificacao}">
+					<c:if test="${empty classificados}">
 						<p>Não há partidas realizadas</p>
 					</c:if>
 				</div>
