@@ -5,14 +5,14 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Classificação</title>
+		<title>Classificação Grupos</title>
 		<link rel="stylesheet" type="text/css" href='<c:url value="./resources/css/styles.css" />'>
 	</head>
 	<body>
 		<jsp:include page="menu.jsp" />
 		<main>
 			<div class="conteudo">
-				<h1 align="center">Classificação</h1>
+				<h1 align="center">Classificação Grupos</h1>
 				<div class="center">
 					<c:if test="${not empty listaClassificacao}">
 						<div class="divTb">
