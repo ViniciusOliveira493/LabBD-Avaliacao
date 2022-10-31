@@ -14,7 +14,7 @@
 			<div class="conteudo">
 				<h1 align="center">Quartas de Final</h1>
 				<div class="center">
-					<c:if test="${not empty listaClassificacao}">
+					<c:if test="${not empty times}">
 						<div class="container-tabela-quartas">
 							<div class="divTbGrupo">
 								<h3 align="center">GRUPO A</h3>
@@ -27,7 +27,7 @@
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach begin ="0" end="1" items="${listaClassificacao}" var="m">
+										<c:forEach begin ="0" end="1" items="${times}" var="m">
 											<tr>
 												<td class="coluna">
 													${m.nomeTime}
@@ -48,7 +48,7 @@
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach begin ="2" end="3" items="${listaClassificacao}" var="m">
+										<c:forEach begin ="2" end="3" items="${times}" var="m">
 											<tr>
 												<td class="coluna">
 													${m.nomeTime}
@@ -72,7 +72,7 @@
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach begin ="4" end="5" items="${listaClassificacao}" var="m">
+										<c:forEach begin ="4" end="5" items="${times}" var="m">
 											<tr>
 												<td class="coluna">
 													${m.nomeTime}
@@ -93,7 +93,7 @@
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach begin ="6" end="7" items="${listaClassificacao}" var="m">
+										<c:forEach begin ="6" end="7" items="${times}" var="m">
 											<tr>
 												<td class="coluna">
 													${m.nomeTime}
